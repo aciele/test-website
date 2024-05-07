@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="font-case-style.css">
+    <script async src="./qa2-bbva-testing-6.4.70.js"></script>
+    <title>FONTS</title>
+</head>
+
+<body>
+    <p class="default-font">Times New Roman</p>
+    <p class="fancy-font">Remachine Script</p>
+    <script>
+        (() => {
+            const pElement = document.createElement("p");
+            const content = `
+                <style>
+                    @font-face {
+                        font-style: normal;
+                        font-family: festivalFont;
+                        src: url(assets/SuperFestival.ttf) format("truetype");
+                    }
+                    p {
+                        font-family: festivalFont;
+                        color: rgb(33, 126, 56);
+                    }
+                </style>
+                Super Festival Font
+            `;
+            pElement.innerHTML = content;
+            document.body.appendChild(pElement);
+        })();
+    </script>
+</body>
+
+</html>
