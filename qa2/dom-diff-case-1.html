@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM diff case 1</title>
+    <style>
+        #container {
+            margin-top: 10px;
+            border: 1px solid gray;
+            padding: 20px;
+            max-width: 300px;
+        }
+        .pink {
+            background: pink;
+        }
+    </style>
+    <script async src="./qa2-bbva-testing-6.4.70.js"></script>
+</head>
+<body>
+    <h1>This page should trigger DOM diff in SDK</h1>
+    <button onclick="changeContent()">Click me to change content</button>
+    <div id="container">
+        <span>Existing Content of DIV</span>
+    </div>
+    <script>
+        function changeContent() {
+            const container = document.getElementById("container");
+            container.innerHTML = '<div class="pink">I am a new content triggered by click on the button</div>';
+        }
+    </script>
+</body>
+</html>
