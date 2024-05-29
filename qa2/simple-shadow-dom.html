@@ -33,6 +33,23 @@
         const button = document.createElement('button');
         button.innerHTML = 'Button inside Shadow DOM';
         shadowRoot.appendChild(button);
+
+        const b1 = document.createElement('br');
+        shadowRoot.appendChild(b1);
+        const b2 = document.createElement('br');
+        shadowRoot.appendChild(b2);
+
+        const label = document.createElement('label');
+        label.innerHTML = 'Label for input';
+        shadowRoot.appendChild(label);
+
+        const b3 = document.createElement('br');
+        shadowRoot.appendChild(b3);
+        const b4 = document.createElement('br');
+        shadowRoot.appendChild(b4);
+
+        const input = document.createElement('input');
+        shadowRoot.appendChild(input);
     </script>
 </body>
 </html>
