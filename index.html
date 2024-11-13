@@ -29,7 +29,7 @@
     <br><br>
     <button id="clearButton">Clear from Local Storage</button>
     <br><br>
-    <button id="clearCookies">Clear TLTDID and TLTSID from cookies</button>
+    <!-- <button id="clearCookies">Clear TLTDID and TLTSID from cookies</button> -->
     <br><br>
 
     <script>
@@ -49,13 +49,16 @@
 
         function clearCookies() {
         // Helper function to delete a specific cookie by name
-            function deleteCookie(name) {
-                document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            }
+        function deleteCookie(name, path = '/') {
+                // Clear cookie at root path
+                document.cookie = `${name}=; path=${path}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+                // Clear cookie at default path if it exists
+                document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+        }
             
-            // Delete the cookies TLTDID and TLTSID
-            deleteCookie('TLTDID');
-            deleteCookie('TLTSID');
+            // Attempt to delete TLTDID and TLTSID cookies at different paths
+            deleteCookie('TLTDID', '/');
+            deleteCookie('TLTSID', '/');
         }
 
 
@@ -66,7 +69,7 @@
         // Add event listener to the save button
         document.getElementById('saveButton').addEventListener('click', saveToLocalStorage);
         document.getElementById('clearButton').addEventListener('click', clearLS);
-        document.getElementById('clearCookies').addEventListener('click', clearCookies);
+        // document.getElementById('clearCookies').addEventListener('click', clearCookies);
       </script>
 
     <ul>
