@@ -147,7 +147,7 @@ TLT.addModule("flushQueue", function () {
                 xhrLogging: true,
                 queues: [{
                     qid: "DEFAULT",
-                    endpoint: localStorage.getItem('wsCollectorUrl') || 'http://collector-eaoc.qa.goacoustic.com/collector/collectorPost',
+                    endpoint: localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost',
                     maxEvents: 30,
                     timerInterval: 30000,
                     maxSize: 300000,

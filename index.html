@@ -15,19 +15,21 @@
     <br><br>
     <label for="wsCollectorUrl">WS Collector URL:</label><br>
     <select id="wsCollectorUrl" style="width: 400px;">
-      <option value="http://collector-eaoc.qa.goacoustic.com/collector/collectorPost">QA3</option>
-      <option value="http://collector-eaoc.perf.goacoustic.com/collector/collectorPost">Perf</option>
-      <option value="http://collector-tealeaf-staging.goacoustic.com/collector/collectorPost">Staging</option>
-      <option value="http://lib-ap-1.brilliantcollector.com/collector/collectorPost">SYD</option>
-      <option value="http://lib-eu-1.brilliantcollector.com/collector/collectorPost">FRA</option>
-      <option value="http://lib-us-1.brilliantcollector.com/collector/collectorPost">DAL</option>
-      <option value="http://lib-us-2.brilliantcollector.com/collector/collectorPost">WDC</option>
+      <option value="https://collector-eaoc.qa.goacoustic.com/collector/collectorPost">QA3</option>
+      <option value="https://collector-eaoc.perf.goacoustic.com/collector/collectorPost">Perf</option>
+      <option value="https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost">Staging</option>
+      <option value="https://lib-ap-1.brilliantcollector.com/collector/collectorPost">SYD</option>
+      <option value="https://lib-eu-1.brilliantcollector.com/collector/collectorPost">FRA</option>
+      <option value="https://lib-us-1.brilliantcollector.com/collector/collectorPost">DAL</option>
+      <option value="https://lib-us-2.brilliantcollector.com/collector/collectorPost">WDC</option>
     </select>
     
     <br><br>
     <button id="saveButton">Save to Local Storage</button>
     <br><br>
     <button id="clearButton">Clear from Local Storage</button>
+    <br><br>
+    <button id="clearCookies">Clear TLTDID and TLTSID from cookies</button>
     <br><br>
 
     <script>
@@ -45,13 +47,26 @@
             localStorage.setItem('wsCollectorUrl', '');
         }
 
+        function clearCookies() {
+        // Helper function to delete a specific cookie by name
+            function deleteCookie(name) {
+                document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+            
+            // Delete the cookies TLTDID and TLTSID
+            deleteCookie('TLTDID');
+            deleteCookie('TLTSID');
+        }
+
+
         // Load existing values from localStorage, if any
         document.getElementById('appKey').value = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
-        document.getElementById('wsCollectorUrl').value = localStorage.getItem('wsCollectorUrl') || 'http://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+        document.getElementById('wsCollectorUrl').value = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
     
         // Add event listener to the save button
         document.getElementById('saveButton').addEventListener('click', saveToLocalStorage);
         document.getElementById('clearButton').addEventListener('click', clearLS);
+        document.getElementById('clearCookies').addEventListener('click', clearCookies);
       </script>
 
     <ul>
