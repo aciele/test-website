@@ -6,85 +6,54 @@
     <title>Website with test cases</title>
 </head>
 <body>
-    <h1>This wesite includes various test cases</h1>
-    <p>Index page does not have SDK installed.</p>
+    <p>By default SDK paired with ORG: aurora.com_QA3 with app "Shadow DOM testing" ON QA3</p>
+    <p>updating values by the form bellow allows to use different environment</p>
 
-    <h2>QA2 (Performance) environment links</h2>
-    <p>SDK paired with ORG: AutoTealeaf with app "Shadow DOM website Test March 2024"</p>
-    <ul>
-        <li>
-            <a href="qa2">index</a>
-        </li>
+    <h2>Update org</h2>
+    <label for="appKey">App Key:</label><br>
+    <input type="text" id="appKey" placeholder="Enter app key" style="width: 400px;">
+    <br><br>
+    <label for="wsCollectorUrl">WS Collector URL:</label><br>
+    <select id="wsCollectorUrl" style="width: 400px;">
+      <option value="http://collector-eaoc.qa.goacoustic.com/collector/collectorPost">QA3</option>
+      <option value="http://collector-eaoc.perf.goacoustic.com/collector/collectorPost">Perf</option>
+      <option value="http://collector-tealeaf-staging.goacoustic.com/collector/collectorPost">Staging</option>
+      <option value="http://lib-ap-1.brilliantcollector.com/collector/collectorPost">SYD</option>
+      <option value="http://lib-eu-1.brilliantcollector.com/collector/collectorPost">FRA</option>
+      <option value="http://lib-us-1.brilliantcollector.com/collector/collectorPost">DAL</option>
+      <option value="http://lib-us-2.brilliantcollector.com/collector/collectorPost">WDC</option>
+    </select>
+    
+    <br><br>
+    <button id="saveButton">Save to Local Storage</button>
+    <br><br>
+    <button id="clearButton">Clear from Local Storage</button>
+    <br><br>
 
-        <br>
-        <br>
-        <li>
-            <a href="qa2/simple.html">Simple HTML case</a>
-        </li>
+    <script>
+        // Function to save values to localStorage
+        function saveToLocalStorage() {
+          const appKey = document.getElementById('appKey').value;
+          const wsCollectorUrl = document.getElementById('wsCollectorUrl').value;
+          
+          localStorage.setItem('appKey', appKey);
+          localStorage.setItem('wsCollectorUrl', wsCollectorUrl);
+        }
+    
+        function clearLS() {
+            localStorage.setItem('appKey', '');
+            localStorage.setItem('wsCollectorUrl', '');
+        }
 
-        <li>
-            <a href="qa2/simple-shadow-dom.html">Shadow > button</a>
-        </li>
+        // Load existing values from localStorage, if any
+        document.getElementById('appKey').value = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        document.getElementById('wsCollectorUrl').value = localStorage.getItem('wsCollectorUrl') || 'http://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+    
+        // Add event listener to the save button
+        document.getElementById('saveButton').addEventListener('click', saveToLocalStorage);
+        document.getElementById('clearButton').addEventListener('click', clearLS);
+      </script>
 
-        <li>
-            <a href="qa2/simple-shadow-iframe-shadow.html">Shadow > Iframe > Shadow > button</a>
-        </li>
-
-        <br>
-        <br>
-        
-        <li>
-            <a href="qa2/second-page.html">Second Page</a>
-        </li>
-        <li>
-            <a href="qa2/shadow-styles.html">Shadow DOM stylesheets</a>
-        </li>
-        <br>
-        <li>
-            <a href="qa2/test-cases-shadow-dom.html">Advanced test cases 1</a>
-        </li>
-        <li>
-            <a href="qa2/test-cases-shadow-dom-separate-testing.html">Advanced test cases 2</a>
-        </li>
-        <br>
-        <li>
-            <a href="qa2/map-test.html">HTML + Shadow dom 1 simple case</a>
-        </li>
-        <li>
-            <a href="qa2/map-test-2.html">HTML + Shadow dom 2 simple case</a>
-        </li>
-        <br>
-        <li>
-            <a href="qa2/case-1.html">HTML only iframe</a>
-        </li>
-        <li>
-            <a href="qa2/case-2.html">Iframe with Shadow DOM</a>
-        </li>
-        <li>
-            <a href="qa2/case-3.html">Iframe inside SHADOW DOM</a>
-        </li>
-        <li>
-            <a href="qa2/case-4.html">Iframe inside SHADOW DOM with SHADOW DOM</a>
-        </li>
-        <li>
-            <a href="qa2/iframe-domain-full.html">Iframe with Full DOMAIN Url</a>
-        </li>
-        <br>
-        <br>
-        <li>
-            <a href="qa2/font-case.html">Simple page with different FONTS</a>
-        </li>
-        <br>
-        <br>
-        <br>
-        <li>
-            <a href="qa2/dom-diff-case-1.html">DOM Diff case 1</a>
-        </li>
-    </ul>
-
-
-    <h2>QA3 environment links</h2>
-    <p>SDK paired with ORG: aurora.com_QA3 with app "Shadow DOM testing"</p>
     <ul>
         <li>
             <a href="qa3">index</a>

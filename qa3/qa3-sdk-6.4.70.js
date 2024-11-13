@@ -147,7 +147,7 @@ TLT.addModule("flushQueue", function () {
                 xhrLogging: true,
                 queues: [{
                     qid: "DEFAULT",
-                    endpoint: "https://collector-eaoc.qa.goacoustic.com/collector/collectorPost",
+                    endpoint: localStorage.getItem('wsCollectorUrl') || 'http://collector-eaoc.qa.goacoustic.com/collector/collectorPost',
                     maxEvents: 30,
                     timerInterval: 30000,
                     maxSize: 300000,
@@ -284,7 +284,7 @@ TLT.addModule("flushQueue", function () {
             },
             TLCookie: {
                 appCookieWhitelist: [{ regex: ".*" }],
-                tlAppKey: "825d6c04baa54875a7fa2462912acb46" 
+                tlAppKey: localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46' 
                 // secureTLTSID: true,                       // Defaults to false. Only set to true if 100% HTTPS.
                 // sessionIDUsesStorage: true,               // Defaults to false. Use local storage for TLTSID.
                 // sessionIDUsesCookie: false,               // Defaults to true. Set to false to prevent fallback from local storage.
