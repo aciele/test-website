@@ -136,7 +136,7 @@ TLT.addModule("flushQueue", function () {
             normalization: {
                 urlFunction: function (urlOrPath, messageType) {
                     var retValue = urlOrPath;
-                    var urlRegex = /\/products\/(.*)\/index.html/i;
+                    var urlRegex = /\/products\/(.*)\/index\.html/i;
                     if (messageType === 2) {
                         // replace paths parts where id of product is dynamic 
                         // for example /products/12345/index.html
