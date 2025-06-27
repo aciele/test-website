@@ -419,7 +419,7 @@ TLT.addModule("flushQueue", function () {
     // ----------------------------------------------------------------------------------
     // ------------------------------------------------------- Customise SDK to communicate with parent of iframe -----
     // ----------------------------------------------------------------------------------
-    let sdkConfig = window.TLT.config();
+    let sdkConfig = window.TLT.config;
     // Enable for cross-domain communication
     if (!sdkConfig.core.frames) {
         sdkConfig.core.frames = {};
