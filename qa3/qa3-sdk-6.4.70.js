@@ -47,6 +47,9 @@ TLT.addModule("flushQueue", function () {
 (function () {
     "use strict";
 
+    const appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46' ;
+    const collectorEndpoint = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+
     var config,
         TLT = window.TLT;
 
@@ -159,7 +162,7 @@ TLT.addModule("flushQueue", function () {
                 xhrLogging: true,
                 queues: [{
                     qid: "DEFAULT",
-                    endpoint: localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost',
+                    endpoint: collectorEndpoint,
                     maxEvents: 30,
                     timerInterval: 30000,
                     maxSize: 300000,
@@ -296,7 +299,7 @@ TLT.addModule("flushQueue", function () {
             },
             TLCookie: {
                 appCookieWhitelist: [{ regex: ".*" }],
-                tlAppKey: localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46' 
+                tlAppKey: appKey 
                 // secureTLTSID: true,                       // Defaults to false. Only set to true if 100% HTTPS.
                 // sessionIDUsesStorage: true,               // Defaults to false. Use local storage for TLTSID.
                 // sessionIDUsesCookie: false,               // Defaults to true. Set to false to prevent fallback from local storage.
@@ -410,4 +413,15 @@ TLT.addModule("flushQueue", function () {
     }]);
 
     window.TLT.init(config, afterInit);
+
+    // ----------------------------------------------------------------------------------
+    // ------------------------------------------------------- Customise SDK to communicate with parent of iframe -----
+    // ----------------------------------------------------------------------------------
+    let config = window.TLT.getDefaultConfig();
+    // Enable for cross-domain communication
+    config.core.frames.enableCrossDomainCommunication = true;
+    // In order to adjust path and IDs for data, indicate the ID of the iframe to be used on parent page.
+    config.core.frames.eventProducer.producerId = "test-website-frame"
+    // Initialize the library with updated configuration
+    window.TLT.initLibAdv(appKey, collectorEndpoint, config, true, true, true, true, true, undefined)
 }());
