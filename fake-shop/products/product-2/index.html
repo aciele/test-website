@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="./qa3-sdk-6.4.70.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product 2 - Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 2rem;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    p.description {
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 1.5rem;
+    }
+    .back-link {
+      display: inline-block;
+      text-decoration: none;
+      color: #0066cc;
+      padding: 0.5rem 1rem;
+      border: 1px solid #0066cc;
+      border-radius: 4px;
+      transition: background-color 0.2s, color 0.2s;
+      margin-right: 1rem;
+    }
+    .back-link:hover {
+      background-color: #0066cc;
+      color: #fff;
+    }
+    .add-to-cart {
+      padding: 0.5rem 1.2rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .add-to-cart:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img width="600" height="400" src="https://picsum.photos/id/30/600/400" alt="Product 2 Image">
+    <h1 data-productName="Product 2">Product 2</h1>
+    <p class="description">
+      This is a detailed description of Product 2. It includes all the important features and specifications that help the customer make a purchase decision.
+    </p>
+    <div class="price" id="price">$29.99</div>
+    <a href="../index.html" class="back-link">← Back to Listing</a>
+    <button class="add-to-cart" onclick="handleAddToCart()">Add to Cart</button>
+  </div>
+</body>
+</html>
