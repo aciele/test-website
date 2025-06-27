@@ -204,10 +204,12 @@ TLT.addModule("flushQueue", function () {
                 //
                 // Override as needed below:
                 options: {
-                    maxLength: 5000000,
-                    captureFrames: true,
+                    maxLength: 10000000,
                     captureShadowDOM: true,
-                    captureDynamicStyles: true
+                    captureDynamicStyles: true,
+                    captureFrames: true,
+                    debugVoidElementsEnabled: false,
+                    debugVoidElementsTimer: 10000 // 10 seconds    
                 }
             },
             browser: {
@@ -412,5 +414,25 @@ TLT.addModule("flushQueue", function () {
         }())
     }]);
 
-    window.TLT.init(config, afterInit);        
+    window.TLT.init(config, afterInit);
+
+    // ----------------------------------------------------------------------------------
+    // ------------------------------------------------------- Customise SDK to communicate with parent of iframe -----
+    // ----------------------------------------------------------------------------------
+    let sdkConfig = window.TLT.config();
+    // Enable for cross-domain communication
+    if (!sdkConfig.core.frames) {
+        sdkConfig.core.frames = {};
+    }
+    sdkConfig.core.frames.enableCrossDomainCommunication = true;
+    // In order to adjust path and IDs for data, indicate the ID of the iframe to be used on parent page.
+
+    if (!sdkConfig.core.frames.eventProducer) {
+        sdkConfig.core.frames.eventProducer = {};
+    }
+    sdkConfig.core.frames.eventProducer.producerId = "test-website-frame";
+    // Initialize the library with updated configuration
+        
+    window.TLT.initLibAdv(appKey, collectorEndpoint, sdkConfig, true, true, true, true, true, undefined)
+
 }());
