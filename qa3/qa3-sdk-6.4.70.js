@@ -141,8 +141,9 @@ TLT.addModule("flushQueue", function () {
                         // replace paths parts where id of product is dynamic 
                         // for example /products/12345/index.html
                         retValue = url.replace(urlRegex, "/products/dynamicProductId/index.html");
-                        return urlOrPath;
                     }
+                    
+                    return retValue;
                 }
             },
 
