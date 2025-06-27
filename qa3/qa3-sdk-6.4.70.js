@@ -133,7 +133,18 @@ TLT.addModule("flushQueue", function () {
             },
 
             // Normalize URL, path, or fragment
-            // normalization: {},
+            normalization: {
+                urlFunction: function (urlOrPath, messageType) {
+                    var retValue = url;
+                    var urlRegex = /\/products\/(.*)\/index.html/i;
+                    if (messageType === 2) {
+                        // replace paths parts where id of product is dynamic 
+                        // for example /products/12345/index.html
+                        retValue = url.replace(urlRegex, "/products/dynamicProductId/index.html");
+                        return urlOrPath;
+                    }
+                }
+            },
 
             // Share session identifier with other libraries
             // sessionData: {},
