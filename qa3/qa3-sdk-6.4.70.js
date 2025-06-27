@@ -140,7 +140,7 @@ TLT.addModule("flushQueue", function () {
                     if (messageType === 2) {
                         // replace paths parts where id of product is dynamic 
                         // for example /products/12345/index.html
-                        retValue = url.replace(urlRegex, "/products/dynamicProductId/index.html");
+                        retValue = urlOrPath.replace(urlRegex, "/products/dynamicProductId/index.html");
                     }
                     
                     return retValue;
