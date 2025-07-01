@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script async src="../../qa3/qa3-sdk-6.4.70.js"></script>
+  <title>Your Basket</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 2rem;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+    .item {
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .item:last-child {
+      border-bottom: none;
+    }
+    .form-group {
+      margin-top: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: right;
+      margin-top: 1.5rem;
+    }
+    .order-btn {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .order-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Basket</h1>
+    <div id="cart-items"></div>
+    <div class="total" id="total-price"></div>
+
+    <div class="form-group">
+      <label for="customer-name">First Name</label>
+      <input type="text" id="customer-name" required />
+
+      <label for="customer-last-name">Last Name</label>
+      <input type="text" id="customer-last-name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="delivery">Delivery Method</label>
+      <select id="delivery" required>
+        <option value="Standard">Standard Delivery (3–5 days)</option>
+        <option value="Express">Express Delivery (1–2 days)</option>
+        <option value="Pickup">Pickup Point</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="street">Street and building number</label>
+      <input type="text" id="street" required />
+
+      <label for="city">City</label>
+      <input type="text" id="city" required />
+
+      <label for="postal">Postal code</label>
+      <input type="text" id="postal" required />
+    </div>
+
+    <div class="form-group">
+      <button class="order-btn" onclick="placeOrder()">Order Now</button>
+    </div>
+  </div>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItemsContainer = document.getElementById('cart-items');
+      const totalPriceEl = document.getElementById('total-price');
+      cartItemsContainer.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p>Your basket is empty.</p>';
+        totalPriceEl.textContent = '';
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'item';
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        itemEl.innerHTML = `
+          <div>
+            <strong>${item.name}</strong><br/>
+            Quantity: ${item.quantity}
+          </div>
+          <div>$${itemTotal.toFixed(2)}</div>
+        `;
+        cartItemsContainer.appendChild(itemEl);
+      });
+
+      totalPriceEl.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    function placeOrder() {
+      const cart = localStorage.getItem('cart');
+      if (cart.length === 0) {
+        alert("Your basket is empty.");
+        return;
+      }
+
+      // Simulate order submission
+      alert(`Order completed!`);
+
+      // Clear cart
+      localStorage.removeItem('cart');
+
+      // Optionally clear form fields
+      document.getElementById('customer-name').value = '';
+      document.getElementById('customer-last-name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('delivery').value = 'Standard';
+      document.getElementById('street').value = '';
+      document.getElementById('city').value = '';
+      document.getElementById('postal').value = '';
+
+      // Refresh cart display
+      loadCart();
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>
