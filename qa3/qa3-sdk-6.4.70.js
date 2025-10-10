@@ -402,7 +402,8 @@ TLT.addModule("flushQueue", function () {
         cbFunction: (function () {
             return function (msg, msgObj) {
                 console.log("msg", msg);
-                console.log("msgObjtype -> " + msgObj, msgObj);
+                console.log("msgObjtype -> " + msgObj.type);
+                console.log("msgObj", msgObj);
                 return msgObj;
             };
         }())
