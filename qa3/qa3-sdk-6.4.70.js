@@ -400,16 +400,9 @@ TLT.addModule("flushQueue", function () {
         enabled: true,
         cbType: "messageRedirect",
         cbFunction: (function () {
-            var lastCount = 0;
-    
             return function (msg, msgObj) {
-                if (msgObj && msgObj.count > lastCount) {
-                    lastCount = msgObj.count;
-                    if (msgObj.type) {
-                        console.log("msg", msg)
-                        console.log("msgObj type -> " + msgObj, msgObj)
-                    }
-                }
+                console.log("msg", msg);
+                console.log("msgObjtype -> " + msgObj, msgObj);
                 return msgObj;
             };
         }())
