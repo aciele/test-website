@@ -405,8 +405,9 @@ TLT.addModule("flushQueue", function () {
             return function (msg, msgObj) {
                 if (msgObj && msgObj.count > lastCount) {
                     lastCount = msgObj.count;
-                    if (msgObj.type && msgObj.event && msgObj.event.type && msgObj.target.id) {
-                        console.log("---> Type " + msgObj.type + " " + msgObj.event.type + " on " + msgObj.target.id);
+                    if (msgObj.type) {
+                        console.log("msg", msg)
+                        console.log("msgObj type -> " + msgObj, msgObj)
                     }
                 }
                 return msgObj;
