@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Log Signal Tester - Acoustic Connect</title>
+  <style>
+    :root {
+      --primary: #0066CC;
+      --primary-dark: #0056b3;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --success: #28a745;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --border-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--light);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .back-link {
+      background-color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--dark);
+      transition: transform 0.2s;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .page-title {
+      margin-bottom: 1.5rem;
+    }
+
+    .page-title h1 {
+      font-size: 1.75rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-title p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: white;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+    }
+
+    textarea {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      resize: vertical;
+      min-height: 300px;
+    }
+
+    textarea.valid {
+      border-color: var(--success);
+      background-color: #f8fff8;
+    }
+
+    textarea.invalid {
+      border-color: var(--danger);
+      background-color: #fff8f8;
+    }
+
+    .validation-message {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+    }
+
+    .validation-message.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .validation-message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .validation-message.warning {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #218838;
+    }
+
+    .btn-warning {
+      background-color: var(--warning);
+      color: #333;
+    }
+
+    .btn-warning:hover {
+      background-color: #e0a800;
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .btn-secondary {
+      background-color: var(--gray);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .status-indicator.not-initialized {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .status-indicator.initialized {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: currentColor;
+    }
+
+    .log-output {
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.8rem;
+      padding: 1rem;
+      border-radius: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .log-entry {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .log-entry:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .log-entry.success {
+      color: #6a9955;
+    }
+
+    .log-entry.error {
+      color: #f48771;
+    }
+
+    .log-entry.info {
+      color: #9cdcfe;
+    }
+
+    .log-entry.warning {
+      color: #dcdcaa;
+    }
+
+    .log-time {
+      color: #808080;
+      font-size: 0.75rem;
+    }
+
+    .info-box {
+      background-color: #e7f3ff;
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--dark);
+    }
+
+    .info-box code {
+      background-color: rgba(0,0,0,0.1);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', monospace;
+    }
+
+    .template-btns {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .template-btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      background-color: var(--light);
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .template-btn:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+      font-size: 0.85rem;
+      border-top: 1px solid #eee;
+      margin-top: 2rem;
+    }
+
+    .config-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .config-item:last-child {
+      border-bottom: none;
+    }
+
+    .config-label {
+      font-weight: 500;
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    .config-value {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--dark);
+      text-align: right;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">Acoustic<span>Connect</span> Tools</a>
+    <a href="/" class="back-link">Back to Home</a>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Log Signal Tester</h1>
+      <p>Test TLT.logSignal() with custom signal objects</p>
+    </div>
+
+    <div class="layout">
+      <div>
+        <div class="card">
+          <h2>Signal Payload</h2>
+
+          <div class="info-box">
+            <strong>Required:</strong> The <code>signalType</code> field is required. All other fields go at the same level (flat structure).
+            <br><strong>Signal types:</strong> pageView, addToCart, productView, order, custom
+          </div>
+
+          <div class="template-btns">
+            <button class="template-btn" onclick="loadTemplate('pageView', event)">pageView</button>
+            <button class="template-btn" onclick="loadTemplate('addToCart', event)">addToCart</button>
+            <button class="template-btn" onclick="loadTemplate('productView', event)">productView</button>
+            <button class="template-btn" onclick="loadTemplate('order', event)">order</button>
+            <button class="template-btn" onclick="loadTemplate('custom', event)">custom</button>
+          </div>
+
+          <div class="form-group">
+            <label for="signal-input">Signal Object (JSON / JS Object)</label>
+            <textarea id="signal-input" placeholder='{"signalType": "pageView", "url": "https://acoustic.com/test"}'></textarea>
+            <div id="validation-message" class="validation-message" style="display: none;"></div>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="validateInput(event)">Validate</button>
+            <button class="btn btn-secondary" onclick="formatJson(event)">Format JSON</button>
+            <button class="btn btn-secondary" onclick="clearInput(event)">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>SDK Configuration</h2>
+          <p style="color: var(--gray); font-size: 0.85rem; margin-bottom: 1rem;">
+            Configuration is loaded from localStorage. Change it on the <a href="/" style="color: var(--primary);">home page</a>.
+          </p>
+
+          <div class="config-item">
+            <span class="config-label">App Key</span>
+            <span class="config-value" id="display-appkey">-</span>
+          </div>
+          <div class="config-item">
+            <span class="config-label">App Name</span>
+            <span class="config-value" id="display-appname">-</span>
+          </div>
+          <div class="config-item">
+            <span class="config-label">Collector</span>
+            <span class="config-value" id="display-collector">-</span>
+          </div>
+          <div class="config-item">
+            <span class="config-label">SDK Status</span>
+            <span id="sdk-status" class="status-indicator not-initialized">
+              <span class="status-dot"></span>
+              Not Initialized
+            </span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Actions</h2>
+          <div class="btn-group" style="margin-top: 0;">
+            <button class="btn btn-success" onclick="sendSignal(event)" style="flex: 1;">Send Signal</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Console Log</h2>
+          <div id="log-output" class="log-output">
+            <div class="log-entry info">Ready to send signals.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="clearLog(event)">Clear Log</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Acoustic Connect - Log Signal Testing Tool
+  </footer>
+
+  <script src="../scripts/acoconnect.js"></script>
+  <script>
+    // AppKey to name mapping
+    const appKeyNames = {
+      // DEV - Helldivers DEV
+      'd6fd136d05674478b035a43d4ffed651': 'DEV - Helldivers DEV - MIGRATED',
+      '27f26f34ff644b2f83eb190f165f8551': 'DEV - Helldivers DEV - Web and Mobile',
+      'd47f0199de684bf1b47e86d23808d63c': 'DEV - Helldivers DEV - Shopify',
+      // DEV - Tea-Rex Ultimate
+      '8347ad0540eb464587343b5e9e653021': 'DEV - Tea-Rex Ultimate - MIGRATED',
+      'ce76350d43b64ecc8094c95e560390f6': 'DEV - Tea-Rex Ultimate - Salesforce',
+      '83ebe3fdc6384cc9a072ff20d897f539': 'DEV - Tea-Rex Ultimate - S3 Import',
+      'b467b458643b4ea49be0098da82575ef': 'DEV - Tea-Rex Ultimate - TestingApp',
+      'bc204ed7518944d7b88aab7424aa51c8': 'DEV - Tea-Rex Ultimate - acoustic-local.myshopify.com',
+      '6e54ce8b1b6d42c8ba315d40b5f44323': 'DEV - Tea-Rex Ultimate - Salesforce (2)',
+      '79b1c30663984f5db9cfda7f412fb831': 'DEV - Tea-Rex Ultimate - Shopify',
+      '77f4bb02c244407f849888378be4937c': 'DEV - Tea-Rex Ultimate - Shopify (2)',
+      // DEV - Auto Sessions Ultimate DEV
+      '4673c6093821452d94452bcf6d2aedb2': 'DEV - Auto Sessions Ultimate DEV',
+      // SQA - Helldivers QA Ultimate
+      '30531735c6a74804b0bfc120d1b1543e': 'SQA - Helldivers QA Ultimate - asd.myshopify.com',
+      'b579e19eda54493e82435132f28409ac': 'SQA - Helldivers QA Ultimate - Super TEST Apka',
+      'dd78e8769ec94516bcbf9fcd6d2020f7': 'SQA - Helldivers QA Ultimate - Web + Mobile WIZARD',
+      '53ec51b8a20f4c9f8b81fbd9e7b27721': 'SQA - Helldivers QA Ultimate - Android Push',
+      '4fcb385a19524832bfb55052369d1188': 'SQA - Helldivers QA Ultimate - Salesforce',
+      '9904e0cb762143a786c723e97b815932': 'SQA - Helldivers QA Ultimate - Web + Mobile + Push',
+      '7ac5edf7677746ed84ed864ad7e3e5ea': 'SQA - Helldivers QA Ultimate - Web and Mobile app',
+      '379a9c1e6bb5438b9b72775400ebd799': 'SQA - Helldivers QA Ultimate - TestApp',
+      'c889fb7db41d4c88b86eef50fecc23bc': 'SQA - Helldivers QA Ultimate - PrestashopQa',
+      // SQA - Auto Sessions Ultimate QA
+      '602cae9220584899adc80c9c26495e34': 'SQA - Auto Sessions Ultimate QA',
+      // PROD us-east-1
+      'f1cee19dfdc5488fa56855ee61cb8ceb': 'PROD us-east-1 - Helldivers US-1 - PrestashopProd',
+      'bb819dbb237245569d9f016d79e3c7b8': 'PROD us-east-1 - Helldivers US-1 - App1',
+      // PROD eu-central-1
+      '4be73b56b3aa416d9c987bf23a37434a': 'PROD eu-central-1 - TeaRexUltimateEU - TestApp',
+      '3dd220295709482cb8ff6c48a9bdd1c1': 'PROD eu-central-1 - TeaRexUltimateEU - HTML Website',
+      // PROD ap-southeast-2
+      'ea6dc829102e42a28e96c7f74a5c9b2c': 'PROD ap-southeast-2 - TeaRexUltimateAP - Regression tests'
+    };
+
+    // Collector URL to name mapping
+    const collectorNames = {
+      'https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost': 'DEV',
+      'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost': 'Shared QA',
+      'https://lib-us-1.brilliantcollector.com/collector/collectorPost': 'Production us-east-1',
+      'https://lib-ap-1.brilliantcollector.com/collector/collectorPost': 'Production ap-southeast-2',
+      'https://lib-eu-1.brilliantcollector.com/collector/collectorPost': 'Production eu-central-1',
+      'https://lib-us-2.brilliantcollector.com/collector/collectorPost': 'Production (Tealeaf WDC)',
+      'http://localhost:8083/collector/collectorPost': 'localhost:8083'
+    };
+
+    // Templates for signal objects
+    const templates = {
+      pageView: {
+        signalType: "pageView",
+        url: "https://acoustic.com/test"
+      },
+      addToCart: {
+        signalType: "addToCart",
+        currency: "USD",
+        itemQuantity: 1,
+        productId: "PROD-001",
+        productName: "Sample Product",
+        unitPrice: 29.99
+      },
+      productView: {
+        signalType: "productView",
+        productId: "PROD-001",
+        productName: "Sample Product"
+      },
+      order: {
+        signalType: "order",
+        orderId: "ORD-12345"
+      },
+      custom: {
+        signalType: "custom",
+        customField1: "value1",
+        customField2: "value2"
+      }
+    };
+
+    let isInitialized = false;
+    let storedAppKey = '';
+    let storedCollectorUrl = '';
+
+    // Load and display configuration from localStorage
+    function loadConfiguration() {
+      storedAppKey = localStorage.getItem('appKey') || '';
+      storedCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+
+      // Display appKey (truncated)
+      const displayAppKey = storedAppKey
+        ? storedAppKey.substring(0, 8) + '...' + storedAppKey.substring(storedAppKey.length - 4)
+        : 'Not configured';
+      document.getElementById('display-appkey').textContent = displayAppKey;
+      document.getElementById('display-appkey').title = storedAppKey;
+
+      // Display appKey name
+      const appName = appKeyNames[storedAppKey] || 'Unknown / Custom';
+      document.getElementById('display-appname').textContent = appName;
+      document.getElementById('display-appname').title = appName;
+
+      // Display collector URL name
+      const collectorName = collectorNames[storedCollectorUrl] || storedCollectorUrl;
+      document.getElementById('display-collector').textContent = collectorName;
+      document.getElementById('display-collector').title = storedCollectorUrl;
+
+      // Load saved signal input or default template
+      const savedSignalInput = localStorage.getItem('logSignalInput');
+      if (savedSignalInput) {
+        document.getElementById('signal-input').value = savedSignalInput;
+        validateInput();
+      } else {
+        loadTemplate('pageView');
+      }
+    }
+
+    function saveSignalInput() {
+      const input = document.getElementById('signal-input').value;
+      localStorage.setItem('logSignalInput', input);
+    }
+
+    function loadTemplate(name, event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      const template = templates[name];
+      if (template) {
+        document.getElementById('signal-input').value = JSON.stringify(template, null, 2);
+        saveSignalInput();
+        validateInput();
+      }
+    }
+
+    function parseInput(input) {
+      // Try JSON first
+      try {
+        return JSON.parse(input);
+      } catch (e) {
+        // Try evaluating as JS object (safely)
+        try {
+          // Only allow object literals
+          const trimmed = input.trim();
+          if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+            return Function('"use strict"; return (' + input + ')')();
+          }
+          throw new Error('Input must be a valid JSON or JavaScript object');
+        } catch (e2) {
+          throw new Error('Invalid JSON or JavaScript object: ' + e.message);
+        }
+      }
+    }
+
+    function validateInput(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      const input = document.getElementById('signal-input').value.trim();
+      const textarea = document.getElementById('signal-input');
+      const messageEl = document.getElementById('validation-message');
+
+      if (!input) {
+        textarea.classList.remove('valid', 'invalid');
+        messageEl.style.display = 'none';
+        return { valid: false };
+      }
+
+      try {
+        const obj = parseInput(input);
+
+        if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
+          throw new Error('Input must be an object');
+        }
+
+        if (!obj.signalType) {
+          textarea.classList.remove('valid');
+          textarea.classList.add('invalid');
+          messageEl.className = 'validation-message warning';
+          messageEl.innerHTML = '<strong>Warning:</strong> Missing required field "signalType"';
+          messageEl.style.display = 'block';
+          return { valid: false, obj };
+        }
+
+        textarea.classList.remove('invalid');
+        textarea.classList.add('valid');
+        messageEl.className = 'validation-message success';
+        messageEl.innerHTML = '<strong>Valid!</strong> Object is ready to send. signalType: "' + obj.signalType + '"';
+        messageEl.style.display = 'block';
+        return { valid: true, obj };
+      } catch (e) {
+        textarea.classList.remove('valid');
+        textarea.classList.add('invalid');
+        messageEl.className = 'validation-message error';
+        messageEl.innerHTML = '<strong>Error:</strong> ' + e.message;
+        messageEl.style.display = 'block';
+        return { valid: false, error: e.message };
+      }
+    }
+
+    function formatJson(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      const validation = validateInput();
+      if (validation.obj) {
+        document.getElementById('signal-input').value = JSON.stringify(validation.obj, null, 2);
+        saveSignalInput();
+      }
+    }
+
+    function clearInput(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      document.getElementById('signal-input').value = '';
+      document.getElementById('signal-input').classList.remove('valid', 'invalid');
+      document.getElementById('validation-message').style.display = 'none';
+      localStorage.removeItem('logSignalInput');
+    }
+
+    function log(message, type = 'info') {
+      const logOutput = document.getElementById('log-output');
+      const time = new Date().toLocaleTimeString();
+      const entry = document.createElement('div');
+      entry.className = 'log-entry ' + type;
+      entry.innerHTML = '<span class="log-time">[' + time + ']</span> ' + message;
+      logOutput.insertBefore(entry, logOutput.firstChild);
+    }
+
+    function clearLog(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      document.getElementById('log-output').innerHTML = '<div class="log-entry info">Log cleared.</div>';
+    }
+
+    function updateStatus(initialized) {
+      isInitialized = initialized;
+      const statusEl = document.getElementById('sdk-status');
+      if (initialized) {
+        statusEl.className = 'status-indicator initialized';
+        statusEl.innerHTML = '<span class="status-dot"></span> Initialized';
+      } else {
+        statusEl.className = 'status-indicator not-initialized';
+        statusEl.innerHTML = '<span class="status-dot"></span> Not Initialized';
+      }
+    }
+
+    function sendSignal(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      const validation = validateInput();
+
+      if (!validation.valid) {
+        log('Cannot send: Invalid input or missing signalType', 'error');
+        return;
+      }
+
+      if (!window.TLT || typeof window.TLT.logSignal !== 'function') {
+        log('Error: TLT.logSignal not available. SDK may not be initialized.', 'error');
+        return;
+      }
+
+      try {
+        log('Sending signal: ' + JSON.stringify(validation.obj), 'info');
+        window.TLT.logSignal(validation.obj);
+        log('Signal sent successfully!', 'success');
+      } catch (e) {
+        log('Error sending signal: ' + e.message, 'error');
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadConfiguration();
+
+      // Check if SDK is available and initialize
+      if (window.TLT) {
+        if (storedAppKey) {
+          try {
+            window.TLT.initLib(storedAppKey, storedCollectorUrl);
+            updateStatus(true);
+            log('SDK initialized', 'success');
+          } catch (e) {
+            log('SDK initialization failed: ' + e.message, 'error');
+            updateStatus(false);
+          }
+        } else {
+          log('App Key not configured. Set it on the home page.', 'warning');
+          updateStatus(false);
+        }
+      } else {
+        log('SDK script not loaded', 'error');
+        updateStatus(false);
+      }
+
+      // Auto-validate and save on input change
+      document.getElementById('signal-input').addEventListener('input', function() {
+        saveSignalInput();
+        validateInput();
+      });
+    });
+  </script>
+</body>
+</html>

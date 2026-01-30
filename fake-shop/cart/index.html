@@ -3,129 +3,477 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script async src="../../qa3/qa3-sdk-6.4.70.js"></script>
-  <title>Your Basket</title>
+  <script src="../../scripts/acoconnect.js"></script>
+  <script>
+    (function() {
+      var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+      var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+      window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+    })();
+  </script>
+  <title>Shopping Cart - AcousticShop</title>
   <style>
+    :root {
+      --primary: #0066CC;
+      --primary-dark: #0056b3;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --success: #28a745;
+      --danger: #dc3545;
+      --border-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      margin: 2rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--light);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
     }
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      margin-bottom: 1.5rem;
-    }
-    .item {
-      border-bottom: 1px solid #eee;
-      padding: 1rem 0;
+
+    header {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      color: white;
+      padding: 1.5rem 2rem;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    .item:last-child {
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--dark);
+      transition: transform 0.2s;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .page-title {
+      margin-bottom: 2rem;
+    }
+
+    .page-title h1 {
+      font-size: 2rem;
+      color: var(--dark);
+    }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 450px;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-item:last-child {
       border-bottom: none;
     }
-    .form-group {
-      margin-top: 1.5rem;
+
+    .item-name {
+      font-weight: 600;
+      color: var(--dark);
     }
+
+    .item-qty {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .item-price {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      border-top: 2px solid #eee;
+      margin-top: 1rem;
+    }
+
+    .total-row .amount {
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
     label {
       display: block;
+      font-weight: 500;
       margin-bottom: 0.5rem;
-      font-weight: bold;
+      color: var(--dark);
+      font-size: 0.9rem;
     }
+
     input, select, textarea {
       width: 100%;
-      padding: 0.6rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: white;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    textarea {
-      resize: vertical;
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
     }
-    .total {
-      font-weight: bold;
-      font-size: 1.2rem;
-      text-align: right;
-      margin-top: 1.5rem;
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
+
     .order-btn {
-      margin-top: 2rem;
-      padding: 0.8rem 1.5rem;
+      width: 100%;
+      padding: 1rem;
       font-size: 1rem;
-      background-color: #007bff;
+      font-weight: 600;
+      background-color: var(--success);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      margin-top: 1rem;
+    }
+
+    .order-btn:hover {
+      background-color: #218838;
+    }
+
+    .order-btn:active {
+      transform: scale(0.98);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+    }
+
+    .empty-cart p {
+      margin-bottom: 1rem;
+    }
+
+    .empty-cart a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .empty-cart a:hover {
+      text-decoration: underline;
+    }
+
+    /* Checkbox and Radio styles */
+    .checkbox-group, .radio-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .checkbox-group label, .radio-group label {
+      display: block;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .checkbox-item, .radio-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background-color: var(--light);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
       cursor: pointer;
       transition: background-color 0.2s;
     }
-    .order-btn:hover {
-      background-color: #0056b3;
+
+    .checkbox-item:hover, .radio-item:hover {
+      background-color: #e9ecef;
+    }
+
+    .checkbox-item input[type="checkbox"],
+    .radio-item input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .checkbox-item span, .radio-item span {
+      font-size: 0.9rem;
+      color: var(--dark);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .checkbox-item.highlight {
+      background-color: #e7f3ff;
+      border: 1px solid var(--primary);
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+      font-size: 0.85rem;
+      border-top: 1px solid #eee;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Your Basket</h1>
-    <div id="cart-items"></div>
-    <div class="total" id="total-price"></div>
+  <header>
+    <a href="/" class="logo">Acoustic<span>Shop</span></a>
+    <a href="../products/index.html" class="back-link">Continue Shopping</a>
+  </header>
 
-    <div class="form-group">
-      <label for="customer-name">First Name</label>
-      <input type="text" id="customer-name" required />
-
-      <label for="customer-last-name">Last Name</label>
-      <input type="text" id="customer-last-name" required />
+  <main>
+    <div class="page-title">
+      <h1>Shopping Cart</h1>
     </div>
 
-    <div class="form-group">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" required />
+    <div class="cart-layout">
+      <div>
+        <div class="card">
+          <h2>Your Items</h2>
+          <div id="cart-items"></div>
+          <div class="total-row" id="total-row" style="display: none;">
+            <span>Total</span>
+            <span class="amount" id="total-price"></span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>Checkout</h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="customer-name">First Name</label>
+              <input type="text" id="customer-name" placeholder="John" required />
+            </div>
+            <div class="form-group">
+              <label for="customer-last-name">Last Name</label>
+              <input type="text" id="customer-last-name" placeholder="Doe" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="delivery">Delivery Method</label>
+            <select id="delivery" required>
+              <option value="Standard">Standard Delivery (3-5 days)</option>
+              <option value="Express">Express Delivery (1-2 days)</option>
+              <option value="Pickup">Pickup Point</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="street">Street Address</label>
+            <input type="text" id="street" placeholder="123 Main Street" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" placeholder="New York" required />
+            </div>
+            <div class="form-group">
+              <label for="postal">Postal Code</label>
+              <input type="text" id="postal" placeholder="10001" required />
+            </div>
+          </div>
+
+          <div class="radio-group">
+            <label>Payment Method</label>
+            <label class="radio-item">
+              <input type="radio" name="payment" id="payment-card" value="card" checked />
+              <span>Credit / Debit Card</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="payment" id="payment-paypal" value="paypal" />
+              <span>PayPal</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="payment" id="payment-bank" value="bank" />
+              <span>Bank Transfer</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="payment" id="payment-cod" value="cod" />
+              <span>Cash on Delivery</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="gift-wrap">Gift Options</label>
+            <select id="gift-wrap">
+              <option value="none">No gift wrapping</option>
+              <option value="standard">Standard gift wrap (+$3.99)</option>
+              <option value="premium">Premium gift wrap (+$7.99)</option>
+              <option value="message">Gift wrap with message (+$5.99)</option>
+            </select>
+          </div>
+
+          <div class="checkbox-group">
+            <p class="section-label">Marketing Preferences</p>
+            <label class="checkbox-item highlight">
+              <input type="checkbox" id="consent-all" name="consent-all" />
+              <span>I consent to receive marketing communications via all channels</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="consent-newsletter" name="consent-newsletter" />
+              <span>Subscribe to our newsletter for exclusive deals and updates</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="consent-sms" name="consent-sms" />
+              <span>I agree to receive SMS notifications about orders and promotions</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="consent-whatsapp" name="consent-whatsapp" />
+              <span>I agree to receive WhatsApp messages for order updates</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="consent-phone" name="consent-phone" />
+              <span>I agree to receive promotional calls</span>
+            </label>
+          </div>
+
+          <div class="checkbox-group">
+            <p class="section-label">Order Options</p>
+            <label class="checkbox-item">
+              <input type="checkbox" id="save-info" name="save-info" checked />
+              <span>Save my information for faster checkout next time</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="order-updates" name="order-updates" checked />
+              <span>Send me order status updates via email</span>
+            </label>
+          </div>
+
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" id="terms" name="terms" required />
+              <span>I agree to the Terms of Service and Privacy Policy *</span>
+            </label>
+          </div>
+
+          <button class="order-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+      </div>
     </div>
+  </main>
 
-    <div class="form-group">
-      <label for="delivery">Delivery Method</label>
-      <select id="delivery" required>
-        <option value="Standard">Standard Delivery (3–5 days)</option>
-        <option value="Express">Express Delivery (1–2 days)</option>
-        <option value="Pickup">Pickup Point</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="street">Street and building number</label>
-      <input type="text" id="street" required />
-
-      <label for="city">City</label>
-      <input type="text" id="city" required />
-
-      <label for="postal">Postal code</label>
-      <input type="text" id="postal" required />
-    </div>
-
-    <div class="form-group">
-      <button class="order-btn" onclick="placeOrder()">Order Now</button>
-    </div>
-  </div>
+  <footer>
+    AcousticShop - Test E-commerce Website
+  </footer>
 
   <script>
     function loadCart() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       const cartItemsContainer = document.getElementById('cart-items');
       const totalPriceEl = document.getElementById('total-price');
+      const totalRow = document.getElementById('total-row');
       cartItemsContainer.innerHTML = '';
 
       if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p>Your basket is empty.</p>';
-        totalPriceEl.textContent = '';
+        cartItemsContainer.innerHTML = `
+          <div class="empty-cart">
+            <p>Your cart is empty</p>
+            <a href="../products/index.html">Browse products</a>
+          </div>
+        `;
+        totalRow.style.display = 'none';
         return;
       }
 
@@ -133,37 +481,35 @@
 
       cart.forEach(item => {
         const itemEl = document.createElement('div');
-        itemEl.className = 'item';
+        itemEl.className = 'cart-item';
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
 
         itemEl.innerHTML = `
           <div>
-            <strong>${item.name}</strong><br/>
-            Quantity: ${item.quantity}
+            <div class="item-name">${item.name}</div>
+            <div class="item-qty">Qty: ${item.quantity}</div>
           </div>
-          <div>$${itemTotal.toFixed(2)}</div>
+          <div class="item-price">$${itemTotal.toFixed(2)}</div>
         `;
         cartItemsContainer.appendChild(itemEl);
       });
 
-      totalPriceEl.textContent = `Total: $${total.toFixed(2)}`;
+      totalRow.style.display = 'flex';
+      totalPriceEl.textContent = `$${total.toFixed(2)}`;
     }
 
     function placeOrder() {
-      const cart = localStorage.getItem('cart');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
       if (cart.length === 0) {
-        alert("Your basket is empty.");
+        alert("Your cart is empty.");
         return;
       }
 
-      // Simulate order submission
-      alert(`Order completed!`);
+      alert(`Order completed! Thank you for your purchase.`);
 
-      // Clear cart
       localStorage.removeItem('cart');
 
-      // Optionally clear form fields
       document.getElementById('customer-name').value = '';
       document.getElementById('customer-last-name').value = '';
       document.getElementById('email').value = '';
@@ -172,11 +518,36 @@
       document.getElementById('city').value = '';
       document.getElementById('postal').value = '';
 
-      // Refresh cart display
       loadCart();
     }
 
     loadCart();
+
+    // Handle "consent to all" checkbox
+    const consentAll = document.getElementById('consent-all');
+    const consentCheckboxes = [
+      document.getElementById('consent-newsletter'),
+      document.getElementById('consent-sms'),
+      document.getElementById('consent-whatsapp'),
+      document.getElementById('consent-phone')
+    ];
+
+    consentAll.addEventListener('change', function() {
+      consentCheckboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+      });
+    });
+
+    // Uncheck "consent all" if any individual checkbox is unchecked
+    consentCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (!this.checked) {
+          consentAll.checked = false;
+        } else if (consentCheckboxes.every(cb => cb.checked)) {
+          consentAll.checked = true;
+        }
+      });
+    });
   </script>
 </body>
 </html>

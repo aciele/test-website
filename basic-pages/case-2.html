@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe made with HTML only</title>
+    <script src="../scripts/acoconnect.js"></script>
+    <script>
+      (function() {
+        var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+        window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+      })();
+    </script>
+    <style>
+        iframe {
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>This page has html only iframe without SDK</h1>
+    <h3>Iframe is produced by pure HTML. Iframe includes Shadow DOM</h3>
+    <iframe width="400" height="500" src="iframe-content-no-sdk-shadow.html"></iframe>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test websiste</title>
+    <script src="../scripts/acoconnect.js"></script>
+    <script>
+      (function() {
+        var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+        window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+      })();
+    </script>
+    <style>
+        #js-root {
+            background-color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        #html-only {
+            background-color: #eaeaea;
+            margin-bottom: 40px;
+            padding: 20px 15px;
+        }
+
+        #shadow-root-nested {
+            margin-bottom: 20px;
+        }
+
+        button {
+            border: 1px solid black;
+            padding: 8px 20px;
+            border-radius: 8px;
+
+        }
+
+        #shadow-root-iframes {
+            border: 3px solid purple;
+            background-color: aliceblue;
+            padding: 20px 15px;
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test website page 2</h1>
+    <div id="html-only" style="border: 2px solid #dddddd;">
+        <p>Just HTML content</p>
+        <button type="button">Click</button>
+        <img src="assets/placeholder2.png"  alt="poster" />
+    </div>
+</body>
+</html>

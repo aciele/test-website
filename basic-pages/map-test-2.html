@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../scripts/acoconnect.js"></script>
+    <script>
+      (function() {
+        var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+        window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+      })();
+    </script>
+
+    <title>Shadow Paths test</title>
+    <style>
+        body {
+            margin: 40px 40px;
+        }
+        div {
+            box-sizing: border-box;
+        }
+
+        .boxes {
+            display: flex;
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+
+        #span-btn {
+            display: inline-block;
+            border: 1px solid red;
+            padding: 10px 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>HTML VERSION DOM</h2>
+
+    <div class="boxes">
+        <div class="box">
+            <div>
+                <p>Test paragraph</p>
+                <p>Test paragraph 2</p>
+                <button>I am a test button</button>
+            </div>
+        </div>
+        <div class="box"></div>
+    </div>
+
+    <div class="boxes">
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="boxes">
+        <div class="box"></div>
+        <div class="box" id="box-with-id">
+            <button id="btn1" role="button">click btn1</button>
+        </div>
+    </div>
+
+    <div class="boxes">
+        <div class="box"></div>
+        <div class="box" id="box-with-id">
+            <button id="btn2" role="button" style="margin-top:70px;">click btn2</button>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <h2>SHADOW DOM VERSION</h2>
+
+    <div>
+        <div id="shadow-dom-root-1">
+        </div>
+    </div>
+    
+    
+
+    <!-- apply styles to styleSheets document (not to DOM)  -->
+    <script>
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(`
+            h2 {
+                font-size: 1.5em;
+                color: palevioletred;
+            }
+        `);
+    </script>
+
+    <!-- add Shadow DOM  -->
+
+    <script>
+        const shadowRoot1 = document.getElementById('shadow-dom-root-1');
+        const shadowDom1 = shadowRoot1.attachShadow({ mode: 'open' });
+
+        shadowRoot1.style = 'border: 1px solid black; padding: 18px;';
+        
+        const sheet = new CSSStyleSheet();
+
+        sheet.insertRule(`
+            div:last-of-type {
+                background: red;
+            }
+        `);
+
+        shadowDom1.adoptedStyleSheets = [sheet];
+
+
+        const styles = document.createElement('style');
+        styles.innerHTML = `
+            div {
+                border: 1px solid black;
+                background: palevioletred;
+                width: 150px;
+                height: 150px;
+                box-sizing: border-box;
+                margin-bottom: 10px;
+            }
+        `;
+
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <br />
+            <br />
+            <br />
+            <button id="shadow-dom-1-button-1">Click me</button>
+        `;
+        div.style = 'padding: 20px;';
+
+        const div2 = document.createElement('div');
+        const div2div = document.createElement('div');
+        div2div.style = 'border: 1px solid blue';
+
+        const d2dbutton = document.createElement('button');
+        d2dbutton.innerText = 'div - div - btn';
+        div2div.appendChild(d2dbutton);
+        div2.appendChild(div2div);
+
+
+        shadowDom1.appendChild(styles);
+        shadowDom1.appendChild(div);
+        shadowDom1.appendChild(div2);
+    </script>
+</body>
+</html>

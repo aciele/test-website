@@ -3,129 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website with test cases</title>
+    <title>Acoustic Connect - Test Website</title>
+    <style>
+        :root {
+            --acoustic-blue: #0066CC;
+            --acoustic-dark: #1a1a2e;
+            --acoustic-light: #f8f9fa;
+            --acoustic-gray: #6c757d;
+            --acoustic-success: #28a745;
+            --acoustic-danger: #dc3545;
+            --border-radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--acoustic-light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--acoustic-dark) 0%, #16213e 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            color: var(--acoustic-dark);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--acoustic-blue);
+            display: inline-block;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--acoustic-dark);
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background-color: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--acoustic-blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--acoustic-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: var(--acoustic-gray);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .test-pages h2 {
+            margin-bottom: 1rem;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.75rem;
+            padding-bottom: 20px;
+        }
+
+        .link-grid a {
+            display: block;
+            padding: 0.75rem 1rem;
+            background-color: var(--acoustic-light);
+            border-radius: var(--border-radius);
+            color: var(--acoustic-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .link-grid a:hover {
+            background-color: #e9ecef;
+            border-left-color: var(--acoustic-blue);
+            color: var(--acoustic-blue);
+        }
+
+        .section-divider {
+            margin: 0.5rem 0;
+            grid-column: 1 / -1;
+            font-size: 0.75rem;
+            color: var(--acoustic-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .highlight-link {
+            background-color: #fff3cd !important;
+            border-left-color: #ffc107 !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--acoustic-gray);
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
-    <p>By default SDK paired with ORG: aurora.com_QA3 with app "Shadow DOM testing" ON QA3</p>
-    <p>updating values by the form bellow allows to use different environment</p>
+    <header>
+        <h1>Acoustic Connect - Test Website</h1>
+        <p>SDK Configuration &amp; Test Cases</p>
+    </header>
 
-    <h2>Update org</h2>
-    <label for="appKey">App Key:</label><br>
-    <input type="text" id="appKey" placeholder="Enter app key" style="width: 400px;">
-    <br><br>
-    <label for="wsCollectorUrl">WS Collector URL:</label><br>
-    <select id="wsCollectorUrl" style="width: 400px;">
-      <option value="http://localhost:8083/collector/collectorPost">http://localhost:8083</option>
-      <option value="https://collector-eaoc.qa.goacoustic.com/collector/collectorPost">QA3</option>
-      <option value="https://collector-eaoc.perf.goacoustic.com/collector/collectorPost">Perf</option>
-      <option value="https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost">Staging</option>
-      <option value="https://lib-ap-1.brilliantcollector.com/collector/collectorPost">SYD</option>
-      <option value="https://lib-eu-1.brilliantcollector.com/collector/collectorPost">FRA</option>
-      <option value="https://lib-us-1.brilliantcollector.com/collector/collectorPost">DAL</option>
-      <option value="https://lib-us-2.brilliantcollector.com/collector/collectorPost">WDC</option>
-    </select>
-    
-    <br><br>
-    <button id="saveButton">Save to Local Storage</button>
-    <br><br>
-    <button id="clearButton">Clear from Local Storage</button>
-    <br><br>
-    <!-- <button id="clearCookies">Clear TLTDID and TLTSID from cookies</button> -->
-    <br><br>
+    <div class="container">
+        <div class="card">
+            <h2>SDK Configuration</h2>
+            <p style="color: var(--acoustic-gray); margin-bottom: 1rem; font-size: 0.9rem;">
+                Configure the SDK settings. Values are saved to localStorage and used across all test pages.
+            </p>
+
+            <div class="form-group">
+                <label for="appKeySelect">Select App Key</label>
+                <select id="appKeySelect">
+                    <option value="">Select appKey from list or provide it to the input</option>
+                    <!-- DEV - Helldivers DEV -->
+                    <option value="d6fd136d05674478b035a43d4ffed651">DEV - Helldivers DEV - MIGRATED MANUALLY FROM TEALEAF BY ACIELE</option>
+                    <option value="27f26f34ff644b2f83eb190f165f8551">DEV - Helldivers DEV - Web and Mobile app -- smk-test</option>
+                    <option value="d47f0199de684bf1b47e86d23808d63c">DEV - Helldivers DEV - Shopify</option>
+                    <!-- DEV - Tea-Rex Ultimate -->
+                    <option value="8347ad0540eb464587343b5e9e653021">DEV - Tea-Rex Ultimate - MIGRATED MANUALLY FROM TEALEAF BY ACIELE</option>
+                    <option value="ce76350d43b64ecc8094c95e560390f6">DEV - Tea-Rex Ultimate - Salesforce</option>
+                    <option value="83ebe3fdc6384cc9a072ff20d897f539">DEV - Tea-Rex Ultimate - S3 Import</option>
+                    <option value="b467b458643b4ea49be0098da82575ef">DEV - Tea-Rex Ultimate - TestingApp</option>
+                    <option value="bc204ed7518944d7b88aab7424aa51c8">DEV - Tea-Rex Ultimate - acoustic-local.myshopify.com</option>
+                    <option value="6e54ce8b1b6d42c8ba315d40b5f44323">DEV - Tea-Rex Ultimate - Salesforce (2)</option>
+                    <option value="79b1c30663984f5db9cfda7f412fb831">DEV - Tea-Rex Ultimate - Shopify</option>
+                    <option value="77f4bb02c244407f849888378be4937c">DEV - Tea-Rex Ultimate - Shopify (2)</option>
+                    <!-- DEV - Auto Sessions Ultimate DEV -->
+                    <option value="4673c6093821452d94452bcf6d2aedb2">DEV - Auto Sessions Ultimate DEV - AutoTestAppUltimateDev</option>
+                    <!-- SQA - Helldivers QA Ultimate -->
+                    <option value="30531735c6a74804b0bfc120d1b1543e">SQA - Helldivers QA Ultimate - asd.myshopify.com</option>
+                    <option value="b579e19eda54493e82435132f28409ac">SQA - Helldivers QA Ultimate - Super TEST Apka</option>
+                    <option value="dd78e8769ec94516bcbf9fcd6d2020f7">SQA - Helldivers QA Ultimate - Web + Mobile WIZARD</option>
+                    <option value="53ec51b8a20f4c9f8b81fbd9e7b27721">SQA - Helldivers QA Ultimate - Android Push</option>
+                    <option value="4fcb385a19524832bfb55052369d1188">SQA - Helldivers QA Ultimate - Salesforce</option>
+                    <option value="9904e0cb762143a786c723e97b815932">SQA - Helldivers QA Ultimate - Web + Mobile + Push</option>
+                    <option value="7ac5edf7677746ed84ed864ad7e3e5ea">SQA - Helldivers QA Ultimate - Web and Mobile app</option>
+                    <option value="379a9c1e6bb5438b9b72775400ebd799">SQA - Helldivers QA Ultimate - TestApp</option>
+                    <option value="c889fb7db41d4c88b86eef50fecc23bc">SQA - Helldivers QA Ultimate - PrestashopQa</option>
+                    <!-- SQA - Auto Sessions Ultimate QA -->
+                    <option value="602cae9220584899adc80c9c26495e34">SQA - Auto Sessions Ultimate QA - AutoTestAppUltimateQa</option>
+                    <!-- PROD us-east-1 - Helldivers US-1 Ultimate -->
+                    <option value="f1cee19dfdc5488fa56855ee61cb8ceb">PROD us-east-1 - Helldivers US-1 Ultimate - PrestashopProd</option>
+                    <option value="bb819dbb237245569d9f016d79e3c7b8">PROD us-east-1 - Helldivers US-1 Ultimate - App1</option>
+                    <!-- PROD eu-central-1 - TeaRexUltimateEU -->
+                    <option value="4be73b56b3aa416d9c987bf23a37434a">PROD eu-central-1 - TeaRexUltimateEU - TestApp</option>
+                    <option value="3dd220295709482cb8ff6c48a9bdd1c1">PROD eu-central-1 - TeaRexUltimateEU - HTML Website</option>
+                    <!-- PROD ap-southeast-2 - TeaRexUltimateAP -->
+                    <option value="ea6dc829102e42a28e96c7f74a5c9b2c">PROD ap-southeast-2 - TeaRexUltimateAP - Web application - regression tests</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="appKey">App Key</label>
+                <input type="text" id="appKey" placeholder="Enter app key or select from the list above">
+            </div>
+
+            <div class="form-group">
+                <label for="wsCollectorUrl">Collector URL</label>
+                <select id="wsCollectorUrl">
+                    <option value="https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost">DEV</option>
+                    <option value="https://collector-eaoc.qa.goacoustic.com/collector/collectorPost">Shared QA</option>
+                    <option value="https://lib-us-1.brilliantcollector.com/collector/collectorPost">Production us-east-1</option>
+                    <option value="https://lib-ap-1.brilliantcollector.com/collector/collectorPost">Production ap-southeast-2</option>
+                    <option value="https://lib-eu-1.brilliantcollector.com/collector/collectorPost">Production eu-central-1</option>
+                    <option value="https://lib-us-2.brilliantcollector.com/collector/collectorPost">Production (Tealeaf WDC)</option>
+                    <option value="http://localhost:8083/collector/collectorPost">localhost:8083</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button id="saveButton" class="btn-primary">Save Configuration</button>
+                <button id="clearButton" class="btn-secondary">Clear Configuration</button>
+            </div>
+        </div>
+
+        <div class="card test-pages">
+            <h2>Developer Tools</h2>
+            <div class="link-grid">
+                <a href="tools/log-signal.html" class="highlight-link">Log Signal Tester</a>
+            </div>
+
+            <h2>Shop Pages</h2>
+            <div class="link-grid">
+                <a href="fake-shop/products/index.html" class="highlight-link">Fake Shop - Product Listing</a>
+                <a href="fake-shop/cart/index.html" class="highlight-link">Fake Shop - Cart</a>
+            </div>
+            <h2>Basic Pages</h2>
+            <div class="link-grid">
+                <div class="section-divider">Basic Pages</div>
+                <a href="basic-pages/index.html">Index Page</a>
+                <a href="basic-pages/second-page.html">Second Page</a>
+                <a href="basic-pages/shadow-styles.html">Shadow DOM Stylesheets</a>
+
+                <div class="section-divider">Advanced Test Cases</div>
+                <a href="basic-pages/test-cases-shadow-dom.html">Advanced Test Cases 1</a>
+                <a href="basic-pages/test-cases-shadow-dom-separate-testing.html">Advanced Test Cases 2</a>
+
+                <div class="section-divider">Shadow DOM Cases</div>
+                <a href="basic-pages/map-test.html">HTML + Shadow DOM (Simple 1)</a>
+                <a href="basic-pages/map-test-2.html">HTML + Shadow DOM (Simple 2)</a>
+
+                <div class="section-divider">iFrame Cases</div>
+                <a href="basic-pages/case-1.html">HTML Only iFrame</a>
+                <a href="basic-pages/case-2.html">iFrame with Shadow DOM</a>
+                <a href="basic-pages/case-3.html">iFrame inside Shadow DOM</a>
+                <a href="basic-pages/case-4.html">iFrame inside Shadow DOM with Shadow DOM</a>
+                <a href="basic-pages/trackingpixel-page.html">Tracking Pixel iFrames</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Acoustic Connect SDK Test Website
+    </footer>
 
     <script>
         // Function to save values to localStorage
         function saveToLocalStorage() {
-          const appKey = document.getElementById('appKey').value;
-          const wsCollectorUrl = document.getElementById('wsCollectorUrl').value;
-          
-          localStorage.setItem('appKey', appKey);
-          localStorage.setItem('wsCollectorUrl', wsCollectorUrl);
+            const appKey = document.getElementById('appKey').value;
+            const wsCollectorUrl = document.getElementById('wsCollectorUrl').value;
+
+            localStorage.setItem('appKey', appKey);
+            localStorage.setItem('wsCollectorUrl', wsCollectorUrl);
+
+            // Visual feedback
+            const btn = document.getElementById('saveButton');
+            const originalText = btn.textContent;
+            btn.textContent = 'Saved!';
+            btn.style.backgroundColor = '#28a745';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.backgroundColor = '';
+            }, 1500);
         }
-    
+
         function clearLS() {
             localStorage.setItem('appKey', '');
             localStorage.setItem('wsCollectorUrl', '');
-        }
+            document.getElementById('appKey').value = '';
+            document.getElementById('appKeySelect').value = '';
 
-        function clearCookies() {
-        // Helper function to delete a specific cookie by name
-        function deleteCookie(name, path = '/') {
-                // Clear cookie at root path
-                document.cookie = `${name}=; path=${path}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
-                // Clear cookie at default path if it exists
-                document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+            // Visual feedback
+            const btn = document.getElementById('clearButton');
+            const originalText = btn.textContent;
+            btn.textContent = 'Cleared!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 1500);
         }
-            
-            // Attempt to delete TLTDID and TLTSID cookies at different paths
-            deleteCookie('TLTDID', '/');
-            deleteCookie('TLTSID', '/');
-        }
-
 
         // Load existing values from localStorage, if any
-        document.getElementById('appKey').value = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        const storedAppKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        document.getElementById('appKey').value = storedAppKey;
         document.getElementById('wsCollectorUrl').value = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
-    
+
+        // Set the select value based on localStorage appKey (if it exists in the list)
+        const appKeySelect = document.getElementById('appKeySelect');
+        const selectOption = appKeySelect.querySelector(`option[value="${storedAppKey}"]`);
+        if (selectOption) {
+            appKeySelect.value = storedAppKey;
+        }
+
+        // Handle select change - update input value
+        appKeySelect.addEventListener('change', function() {
+            if (this.value) {
+                document.getElementById('appKey').value = this.value;
+            }
+        });
+
         // Add event listener to the save button
         document.getElementById('saveButton').addEventListener('click', saveToLocalStorage);
         document.getElementById('clearButton').addEventListener('click', clearLS);
-        // document.getElementById('clearCookies').addEventListener('click', clearCookies);
-      </script>
-
-    <ul>
-        <li>
-            <a href="qa3">index</a>
-        </li>
-        <li>
-            <a href="qa3/second-page.html">Second Page</a>
-        </li>
-        <li>
-            <a href="qa3/shadow-styles.html">Shadow DOM stylesheets</a>
-        </li>
-        <br>
-        <li>
-            <a href="qa3/test-cases-shadow-dom.html">Advanced test cases 1</a>
-        </li>
-        <li>
-            <a href="qa3/test-cases-shadow-dom-separate-testing.html">Advanced test cases 2</a>
-        </li>
-        <br>
-        <li>
-            <a href="qa3/map-test.html">HTML + Shadow dom 1 simple case</a>
-        </li>
-        <li>
-            <a href="qa3/map-test-2.html">HTML + Shadow dom 2 simple case</a>
-        </li>
-        <br>
-        <li>
-            <a href="qa3/case-1.html">HTML only iframe</a>
-        </li>
-        <li>
-            <a href="qa3/case-2.html">Iframe with Shadow DOM</a>
-        </li>
-        <li>
-            <a href="qa3/case-3.html">Iframe inside SHADOW DOM</a>
-        </li>
-        <li>
-            <a href="qa3/case-4.html">Iframe inside SHADOW DOM with SHADOW DOM</a>
-        </li>
-        <li>
-            <a href="qa3/trackingpixel-page.html">iFrame elements potentially used for tracking purposes</a>
-        </li>
-    </ul>
-    <h2>Fake shop</h2>
-    <li>
-        <a href="fake-shop/products/index.html">Product listing</a>
-    </li>
-
-    <h2>SDK files</h2>
-    <a href="https://aciele.github.io/test-website/qa2/qa2-sdk-6.4.70.js">QA2 - Org: AutoTealeaf with app "Shadow DOM website Test March 2024"</a>
-    <br>
-    <a href="https://aciele.github.io/test-website/qa3/qa3-sdk-6.4.70.js">QA3 - Org: aurora.com_QA3 with app "Shadow DOM testing"</a>
-    <br>
-    <a href="https://aciele.github.io/test-website/staging/staging-sdk-6.4.70.js">Staging - Org: AutoTealeaf, App: "Simple Event Pre-Canned"</a>
-    <br>
-    <a href="https://aciele.github.io/test-website/prod/prod-sdk-6.4.70.js">Production (Dallas) - Org: AutoTealeaf App: "Test Pages"</a>
+    </script>
 </body>
 </html>
