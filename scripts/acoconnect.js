@@ -6253,74 +6253,74 @@ TLT.addService("config", function(core) {
                         },
                         message: {
                             privacy: [
-                                {
-                                    targets: ["input[type=password]"],
-                                    maskType: 2
-                                },
-                                {
-                                    targets: ["input[id*=phone]", "input[name*=phone]"],
-                                    maskType: 4, // replace all digits with X except last 3
-                                    maskFunction: function(value) {
-                                        return value.slice(0, -3).replace(/\d/g, "X") + value.slice(-3);
-                                    }
-                                },
-                                {
-                                    // Whitelist privacy, un-masking only elements not containing PII
-                                    exclude: true,
-                                    targets: [
-                                        // Parameterize - need to be able to dynamically extend/modify this list
-                                        "input[type=hidden]",
-                                        "input[type=radio]",
-                                        "input[type=checkbox]",
-                                        "input[type=submit]",
-                                        "input[type=button]",
-                                        "input[type=search]"
-                                    ],
-                                    maskType: 4, // replace all alphas with X and digits with 9
-                                    maskFunction: function(value) {
-                                        return value.replace(/[a-z]/gi, "X").replace(/\d/g, "9");
-                                    }
-                                }
+                                // {
+                                //     targets: ["input[type=password]"],
+                                //     maskType: 2
+                                // },
+                                // {
+                                //     targets: ["input[id*=phone]", "input[name*=phone]"],
+                                //     maskType: 4, // replace all digits with X except last 3
+                                //     maskFunction: function(value) {
+                                //         return value.slice(0, -3).replace(/\d/g, "X") + value.slice(-3);
+                                //     }
+                                // },
+                                // {
+                                //     // Whitelist privacy, un-masking only elements not containing PII
+                                //     exclude: true,
+                                //     targets: [
+                                //         // Parameterize - need to be able to dynamically extend/modify this list
+                                //         "input[type=hidden]",
+                                //         "input[type=radio]",
+                                //         "input[type=checkbox]",
+                                //         "input[type=submit]",
+                                //         "input[type=button]",
+                                //         "input[type=search]"
+                                //     ],
+                                //     maskType: 4, // replace all alphas with X and digits with 9
+                                //     maskFunction: function(value) {
+                                //         return value.replace(/[a-z]/gi, "X").replace(/\d/g, "9");
+                                //     }
+                                // }
                             ],
                             privacyPatterns: [
                                 // Preemptively block SSN numbers in response
-                                {
-                                    pattern: {
-                                        regex: "\\d{3}-\\d{2}-\\d{4}",
-                                        flags: "g"
-                                    },
-                                    replacement: "XXX-XX-XXXX"
-                                },
+                                // {
+                                //     pattern: {
+                                //         regex: "\\d{3}-\\d{2}-\\d{4}",
+                                //         flags: "g"
+                                //     },
+                                //     replacement: "XXX-XX-XXXX"
+                                // },
                                 // Uncomment to block elements with .tlPrivate class
-                                {
-                                    pattern: {
-                                        regex: "<div[^<]*tlPrivate[^<]*>(.+?)</div>",
-                                        flags: "g"
-                                    },
-                                    replacement: function(fullMatch, group1) {
-                                        let retVal;
-                                        if (group1.length > 0) {
-                                            retVal = fullMatch.replace(group1, "xxxxxx");
-                                            return retVal;
-                                        }
-                                        return undefined;
-                                    }
-                                },
-                                {
-                                    pattern: {
-                                        regex: "<span[^<]*tlPrivate[^<]*>(.+?)</span>",
-                                        flags: "g"
-                                    },
-                                    replacement: replacementFun
-                                },
-                                {
-                                    pattern: {
-                                        regex: "<p[^<]*tlPrivate[^<]*>(.+?)</p>",
-                                        flags: "g"
-                                    },
-                                    replacement: replacementFun
-                                }
-                                ]
+                                // {
+                                //     pattern: {
+                                //         regex: "<div[^<]*tlPrivate[^<]*>(.+?)</div>",
+                                //         flags: "g"
+                                //     },
+                                //     replacement: function(fullMatch, group1) {
+                                //         let retVal;
+                                //         if (group1.length > 0) {
+                                //             retVal = fullMatch.replace(group1, "xxxxxx");
+                                //             return retVal;
+                                //         }
+                                //         return undefined;
+                                //     }
+                                // },
+                                // {
+                                //     pattern: {
+                                //         regex: "<span[^<]*tlPrivate[^<]*>(.+?)</span>",
+                                //         flags: "g"
+                                //     },
+                                //     replacement: replacementFun
+                                // },
+                                // {
+                                //     pattern: {
+                                //         regex: "<p[^<]*tlPrivate[^<]*>(.+?)</p>",
+                                //         flags: "g"
+                                //     },
+                                //     replacement: replacementFun
+                                // }
+                            ]
                         },
                         encoder: {
                             gzip: {
