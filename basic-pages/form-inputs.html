@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Acoustic Tealeaf SDK -->
+    <script src="../scripts/acoconnect.js"></script>
+    <script>
+      (function() {
+        var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+        window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+
+
+        TLT.registerBridgeCallbacks([{
+                enabled: true,
+                cbType: "messageRedirect",
+                cbFunction: (function() {
+                    return function(msg, msgObj) {
+                        if (msgObj.type !== 4) { return; }
+    
+                        console.log("event ", msgObj.event);
+                        console.log(msgObj);
+                        return msgObj;
+                    }
+                    ;
+                }())
+            }]);
+      })();
+    </script>
+
+    <title>HTML Input Types Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .form-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        fieldset {
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        legend {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        output {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #e9ecef;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+            min-width: 50px;
+            text-align: center;
+        }
+        datalist {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML Input Types Test Page</h1>
+
+    <form id="testForm" class="form-section">
+        <h2>Text Input Types</h2>
+
+        <div class="form-group">
+            <label for="input-text">Text Input:</label>
+            <input
+                type="text"
+                id="input-text"
+                name="textInput"
+                class="input-text-field"
+                data-type="text"
+                data-category="basic"
+                placeholder="Enter text">
+        </div>
+
+        <div class="form-group">
+            <label for="input-password">Password Input:</label>
+            <input
+                type="password"
+                id="input-password"
+                name="passwordInput"
+                class="input-password-field"
+                data-type="password"
+                data-category="secure"
+                placeholder="Enter password">
+        </div>
+
+        <div class="form-group">
+            <label for="input-email">Email Input:</label>
+            <input
+                type="email"
+                id="input-email"
+                name="emailInput"
+                class="input-email-field"
+                data-type="email"
+                data-category="contact"
+                placeholder="Enter email">
+        </div>
+
+        <div class="form-group">
+            <label for="input-url">URL Input:</label>
+            <input
+                type="url"
+                id="input-url"
+                name="urlInput"
+                class="input-url-field"
+                data-type="url"
+                data-category="web"
+                placeholder="https://example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="input-tel">Tel Input:</label>
+            <input
+                type="tel"
+                id="input-tel"
+                name="telInput"
+                class="input-tel-field"
+                data-type="tel"
+                data-category="contact"
+                placeholder="123-456-7890">
+        </div>
+
+        <div class="form-group">
+            <label for="input-search">Search Input:</label>
+            <input
+                type="search"
+                id="input-search"
+                name="searchInput"
+                class="input-search-field"
+                data-type="search"
+                data-category="query"
+                placeholder="Search...">
+        </div>
+
+        <h2>Numeric Input Types</h2>
+
+        <div class="form-group">
+            <label for="input-number">Number Input:</label>
+            <input
+                type="number"
+                id="input-number"
+                name="numberInput"
+                class="input-number-field"
+                data-type="number"
+                data-category="numeric"
+                min="0"
+                max="100"
+                placeholder="Enter number">
+        </div>
+
+        <div class="form-group">
+            <label for="input-range">Range Input:</label>
+            <input
+                type="range"
+                id="input-range"
+                name="rangeInput"
+                class="input-range-field"
+                data-type="range"
+                data-category="numeric"
+                min="0"
+                max="100"
+                value="50">
+        </div>
+
+        <h2>Date and Time Input Types</h2>
+
+        <div class="form-group">
+            <label for="input-date">Date Input:</label>
+            <input
+                type="date"
+                id="input-date"
+                name="dateInput"
+                class="input-date-field"
+                data-type="date"
+                data-category="datetime">
+        </div>
+
+        <div class="form-group">
+            <label for="input-time">Time Input:</label>
+            <input
+                type="time"
+                id="input-time"
+                name="timeInput"
+                class="input-time-field"
+                data-type="time"
+                data-category="datetime">
+        </div>
+
+        <div class="form-group">
+            <label for="input-datetime-local">Datetime-Local Input:</label>
+            <input
+                type="datetime-local"
+                id="input-datetime-local"
+                name="datetimeLocalInput"
+                class="input-datetime-field"
+                data-type="datetime-local"
+                data-category="datetime">
+        </div>
+
+        <div class="form-group">
+            <label for="input-month">Month Input:</label>
+            <input
+                type="month"
+                id="input-month"
+                name="monthInput"
+                class="input-month-field"
+                data-type="month"
+                data-category="datetime">
+        </div>
+
+        <div class="form-group">
+            <label for="input-week">Week Input:</label>
+            <input
+                type="week"
+                id="input-week"
+                name="weekInput"
+                class="input-week-field"
+                data-type="week"
+                data-category="datetime">
+        </div>
+
+        <h2>Color Input Type</h2>
+
+        <div class="form-group">
+            <label for="input-color">Color Input:</label>
+            <input
+                type="color"
+                id="input-color"
+                name="colorInput"
+                class="input-color-field"
+                data-type="color"
+                data-category="picker"
+                value="#007bff">
+        </div>
+
+        <h2>File Input Type</h2>
+
+        <div class="form-group">
+            <label for="input-file">File Input:</label>
+            <input
+                type="file"
+                id="input-file"
+                name="fileInput"
+                class="input-file-field"
+                data-type="file"
+                data-category="upload">
+        </div>
+
+        <div class="form-group">
+            <label for="input-file-multiple">File Input (Multiple):</label>
+            <input
+                type="file"
+                id="input-file-multiple"
+                name="fileMultipleInput"
+                class="input-file-multiple-field"
+                data-type="file-multiple"
+                data-category="upload"
+                multiple>
+        </div>
+
+        <h2>Radio Buttons</h2>
+
+        <div class="form-group">
+            <label>Radio Button Group:</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input
+                        type="radio"
+                        id="radio-option1"
+                        name="radioGroup"
+                        class="input-radio-field"
+                        data-type="radio"
+                        data-category="choice"
+                        value="option1"
+                        checked>
+                    <label for="radio-option1">Option 1</label>
+                </div>
+                <div class="radio-item">
+                    <input
+                        type="radio"
+                        id="radio-option2"
+                        name="radioGroup"
+                        class="input-radio-field"
+                        data-type="radio"
+                        data-category="choice"
+                        value="option2">
+                    <label for="radio-option2">Option 2</label>
+                </div>
+                <div class="radio-item">
+                    <input
+                        type="radio"
+                        id="radio-option3"
+                        name="radioGroup"
+                        class="input-radio-field"
+                        data-type="radio"
+                        data-category="choice"
+                        value="option3">
+                    <label for="radio-option3">Option 3</label>
+                </div>
+            </div>
+        </div>
+
+        <h2>Checkboxes</h2>
+
+        <div class="form-group">
+            <label>Checkbox Group:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input
+                        type="checkbox"
+                        id="checkbox1"
+                        name="checkbox1"
+                        class="input-checkbox-field"
+                        data-type="checkbox"
+                        data-category="multi-choice"
+                        value="check1">
+                    <label for="checkbox1">Checkbox 1</label>
+                </div>
+                <div class="checkbox-item">
+                    <input
+                        type="checkbox"
+                        id="checkbox2"
+                        name="checkbox2"
+                        class="input-checkbox-field"
+                        data-type="checkbox"
+                        data-category="multi-choice"
+                        value="check2">
+                    <label for="checkbox2">Checkbox 2</label>
+                </div>
+                <div class="checkbox-item">
+                    <input
+                        type="checkbox"
+                        id="checkbox3"
+                        name="checkbox3"
+                        class="input-checkbox-field"
+                        data-type="checkbox"
+                        data-category="multi-choice"
+                        value="check3"
+                        checked>
+                    <label for="checkbox3">Checkbox 3</label>
+                </div>
+            </div>
+        </div>
+
+        <h2>Select Dropdown</h2>
+
+        <div class="form-group">
+            <label for="select-single">Select (Single):</label>
+            <select
+                id="select-single"
+                name="selectSingle"
+                class="input-select-field"
+                data-type="select"
+                data-category="dropdown">
+                <option value="">Choose an option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+                <option value="option4">Option 4</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="select-multiple">Select (Multiple):</label>
+            <select
+                id="select-multiple"
+                name="selectMultiple"
+                class="input-select-multiple-field"
+                data-type="select-multiple"
+                data-category="dropdown"
+                multiple
+                size="5">
+                <option value="multi1">Multi Option 1</option>
+                <option value="multi2">Multi Option 2</option>
+                <option value="multi3">Multi Option 3</option>
+                <option value="multi4">Multi Option 4</option>
+                <option value="multi5">Multi Option 5</option>
+            </select>
+        </div>
+
+        <h2>Textarea</h2>
+
+        <div class="form-group">
+            <label for="textarea-input">Textarea:</label>
+            <textarea
+                id="textarea-input"
+                name="textareaInput"
+                class="input-textarea-field"
+                data-type="textarea"
+                data-category="text"
+                rows="4"
+                placeholder="Enter multiple lines of text..."></textarea>
+        </div>
+
+        <h2>Button Input Types</h2>
+
+        <div class="form-group">
+            <input
+                type="submit"
+                id="input-submit"
+                name="submitButton"
+                class="input-submit-button"
+                data-type="submit"
+                data-category="action"
+                value="Submit Form">
+        </div>
+
+        <div class="form-group">
+            <input
+                type="reset"
+                id="input-reset"
+                name="resetButton"
+                class="input-reset-button"
+                data-type="reset"
+                data-category="action"
+                value="Reset Form">
+        </div>
+
+        <div class="form-group">
+            <input
+                type="button"
+                id="input-button"
+                name="buttonInput"
+                class="input-button-field"
+                data-type="button"
+                data-category="action"
+                value="Click Me"
+                onclick="alert('Button clicked!')">
+        </div>
+
+        <h2>Other Input Types</h2>
+
+        <div class="form-group">
+            <input
+                type="hidden"
+                id="input-hidden"
+                name="hiddenInput"
+                class="input-hidden-field"
+                data-type="hidden"
+                data-category="hidden"
+                value="hidden-value">
+            <label>Hidden Input (value: "hidden-value")</label>
+        </div>
+
+        <div class="form-group">
+            <label for="input-image">Image Input:</label>
+            <input
+                type="image"
+                id="input-image"
+                name="imageInput"
+                class="input-image-field"
+                data-type="image"
+                data-category="action"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='40'%3E%3Crect width='100' height='40' fill='%23007bff'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Arial'%3EClick Me%3C/text%3E%3C/svg%3E"
+                alt="Submit">
+        </div>
+
+        <h2>Datalist Element</h2>
+
+        <div class="form-group">
+            <label for="input-datalist">Input with Datalist:</label>
+            <input
+                type="text"
+                id="input-datalist"
+                name="datalistInput"
+                class="input-datalist-field"
+                data-type="datalist"
+                data-category="autocomplete"
+                list="browsers"
+                placeholder="Choose a browser">
+            <datalist
+                id="browsers"
+                data-type="datalist-options"
+                data-category="autocomplete">
+                <option value="Chrome">
+                <option value="Firefox">
+                <option value="Safari">
+                <option value="Edge">
+                <option value="Opera">
+            </datalist>
+        </div>
+
+        <h2>Output Element</h2>
+
+        <div class="form-group">
+            <label>Range with Output:</label>
+            <input
+                type="range"
+                id="input-range-output"
+                name="rangeOutputInput"
+                class="input-range-output-field"
+                data-type="range"
+                data-category="numeric"
+                min="0"
+                max="100"
+                value="50"
+                oninput="this.nextElementSibling.value = this.value">
+            <output
+                id="output-display"
+                name="outputDisplay"
+                class="output-display-field"
+                data-type="output"
+                data-category="display"
+                for="input-range-output">50</output>
+        </div>
+
+        <div class="form-group">
+            <label>Number Addition Calculator:</label>
+            <input
+                type="number"
+                id="input-calc-a"
+                name="calcInputA"
+                class="input-calc-field"
+                data-type="number"
+                data-category="calculator"
+                value="0"
+                oninput="document.getElementById('calc-result').value = parseInt(this.value || 0) + parseInt(document.getElementById('input-calc-b').value || 0)">
+            +
+            <input
+                type="number"
+                id="input-calc-b"
+                name="calcInputB"
+                class="input-calc-field"
+                data-type="number"
+                data-category="calculator"
+                value="0"
+                oninput="document.getElementById('calc-result').value = parseInt(document.getElementById('input-calc-a').value || 0) + parseInt(this.value || 0)">
+            =
+            <output
+                id="calc-result"
+                name="calcResult"
+                class="output-calc-field"
+                data-type="output"
+                data-category="calculator"
+                for="input-calc-a input-calc-b">0</output>
+        </div>
+
+        <h2>Select with Optgroup</h2>
+
+        <div class="form-group">
+            <label for="select-optgroup">Select with Option Groups:</label>
+            <select
+                id="select-optgroup"
+                name="selectOptgroup"
+                class="input-select-optgroup-field"
+                data-type="select"
+                data-category="grouped-dropdown">
+                <option value="">Choose a vehicle</option>
+                <optgroup label="Swedish Cars" data-group="swedish">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                </optgroup>
+                <optgroup label="German Cars" data-group="german">
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                    <option value="bmw">BMW</option>
+                </optgroup>
+                <optgroup label="Japanese Cars" data-group="japanese">
+                    <option value="toyota">Toyota</option>
+                    <option value="honda">Honda</option>
+                    <option value="nissan">Nissan</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <h2>Fieldset and Legend</h2>
+
+        <fieldset
+            class="fieldset-group"
+            data-type="fieldset"
+            data-category="group">
+            <legend
+                class="legend-title"
+                data-type="legend"
+                data-category="group">Personal Information</legend>
+
+            <div class="form-group">
+                <label for="fieldset-firstname">First Name:</label>
+                <input
+                    type="text"
+                    id="fieldset-firstname"
+                    name="fieldsetFirstname"
+                    class="input-fieldset-text"
+                    data-type="text"
+                    data-category="personal"
+                    placeholder="Enter first name">
+            </div>
+
+            <div class="form-group">
+                <label for="fieldset-lastname">Last Name:</label>
+                <input
+                    type="text"
+                    id="fieldset-lastname"
+                    name="fieldsetLastname"
+                    class="input-fieldset-text"
+                    data-type="text"
+                    data-category="personal"
+                    placeholder="Enter last name">
+            </div>
+
+            <div class="form-group">
+                <label for="fieldset-age">Age:</label>
+                <input
+                    type="number"
+                    id="fieldset-age"
+                    name="fieldsetAge"
+                    class="input-fieldset-number"
+                    data-type="number"
+                    data-category="personal"
+                    min="1"
+                    max="120"
+                    placeholder="Enter age">
+            </div>
+        </fieldset>
+
+        <fieldset
+            class="fieldset-group"
+            data-type="fieldset"
+            data-category="group"
+            disabled>
+            <legend
+                class="legend-title"
+                data-type="legend"
+                data-category="group">Disabled Fieldset Example</legend>
+
+            <div class="form-group">
+                <label for="disabled-input">Disabled Input:</label>
+                <input
+                    type="text"
+                    id="disabled-input"
+                    name="disabledInput"
+                    class="input-disabled-field"
+                    data-type="text"
+                    data-category="disabled"
+                    value="This entire fieldset is disabled">
+            </div>
+
+            <div class="form-group">
+                <label for="disabled-select">Disabled Select:</label>
+                <select
+                    id="disabled-select"
+                    name="disabledSelect"
+                    class="input-disabled-select"
+                    data-type="select"
+                    data-category="disabled">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <h2>Button Element</h2>
+
+        <div class="form-group">
+            <button
+                type="button"
+                id="button-element"
+                name="buttonElement"
+                class="button-element-field"
+                data-type="button"
+                data-category="action"
+                onclick="alert('Button element clicked!')">
+                Button Element (type=button)
+            </button>
+        </div>
+
+        <div class="form-group">
+            <button
+                type="submit"
+                id="button-submit"
+                name="buttonSubmit"
+                class="button-submit-field"
+                data-type="submit"
+                data-category="action">
+                Button Element (type=submit)
+            </button>
+        </div>
+
+        <div class="form-group">
+            <button
+                type="reset"
+                id="button-reset"
+                name="buttonReset"
+                class="button-reset-field"
+                data-type="reset"
+                data-category="action">
+                Button Element (type=reset)
+            </button>
+        </div>
+    </form>
+</body>
+</html>

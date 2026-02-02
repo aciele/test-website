@@ -17474,17 +17474,3 @@ TLT.addModule("replay", function(context) {
         onmessage: function() {}
     };
 });
-
-TLT.registerBridgeCallbacks([{
-    enabled: true,
-    cbType: "messageRedirect",
-    cbFunction: (function() {
-        return function(msg, msgObj) {
-            console.log("msg", msg);
-            console.log("msgObjtype -> " + msgObj.type);
-            console.log("msgObj", msgObj);
-            return msgObj;
-        }
-        ;
-    }())
-}]);

@@ -3,12 +3,23 @@
 <head>
   <script src="../../scripts/acoconnect.js"></script>
   <script>
-    (function() {
-      var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
-      var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
-      console.log('Initializing Acoustic Connect with App Key:', appKey, 'and WS Collector URL:', wsCollectorUrl);
-      window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
-    })();
+      (function() {
+        var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+        window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+
+        TLT.registerBridgeCallbacks([{
+                enabled: true,
+                cbType: "messageRedirect",
+                cbFunction: (function() {
+                    return function(msg, msgObj) {
+                        console.log("Type ", msgObj.type, msgObj);
+                        return msgObj;
+                    }
+                    ;
+                }())
+            }]);
+      })();
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
