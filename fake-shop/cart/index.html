@@ -337,22 +337,22 @@
           <div class="form-row">
             <div class="form-group">
               <label for="customer-name">First Name</label>
-              <input type="text" id="customer-name" placeholder="John" required />
+              <input type="text" id="customer-name" placeholder="John" required class="test-class-1" data-test="data-test" />
             </div>
             <div class="form-group">
               <label for="customer-last-name">Last Name</label>
-              <input type="text" id="customer-last-name" placeholder="Doe" required />
+              <input type="text" id="customer-last-name" placeholder="Doe" required class="test-class-1" data-test="data-test" />
             </div>
           </div>
 
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="john@example.com" required />
+            <input type="email" id="email" placeholder="john@example.com" required class="test-class-1" data-test="data-test" />
           </div>
 
           <div class="form-group">
             <label for="delivery">Delivery Method</label>
-            <select id="delivery" required>
+            <select id="delivery" required class="test-class-1" data-test="data-test" >
               <option value="Standard">Standard Delivery (3-5 days)</option>
               <option value="Express">Express Delivery (1-2 days)</option>
               <option value="Pickup">Pickup Point</option>
@@ -361,43 +361,43 @@
 
           <div class="form-group">
             <label for="street">Street Address</label>
-            <input type="text" id="street" placeholder="123 Main Street" required />
+            <input type="text" id="street" placeholder="123 Main Street" required class="test-class-1" data-test="data-test" />
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="city">City</label>
-              <input type="text" id="city" placeholder="New York" required />
+              <input type="text" id="city" placeholder="New York" required  class="test-class-1" data-test="data-test" />
             </div>
             <div class="form-group">
               <label for="postal">Postal Code</label>
-              <input type="text" id="postal" placeholder="10001" required />
+              <input type="text" id="postal" placeholder="10001" required class="test-class-1" data-test="data-test" />
             </div>
           </div>
 
           <div class="radio-group">
             <label>Payment Method</label>
             <label class="radio-item">
-              <input type="radio" name="payment" id="payment-card" value="card" checked />
+              <input type="radio" name="payment" id="payment-card" value="card" checked  class="test-class-1" data-test="data-test" />
               <span>Credit / Debit Card</span>
             </label>
             <label class="radio-item">
-              <input type="radio" name="payment" id="payment-paypal" value="paypal" />
+              <input type="radio" name="payment" id="payment-paypal" value="paypal" class="test-class-1" data-test="data-test" />
               <span>PayPal</span>
             </label>
             <label class="radio-item">
-              <input type="radio" name="payment" id="payment-bank" value="bank" />
+              <input type="radio" name="payment" id="payment-bank" value="bank" class="test-class-1" data-test="data-test" />
               <span>Bank Transfer</span>
             </label>
             <label class="radio-item">
-              <input type="radio" name="payment" id="payment-cod" value="cod" />
+              <input type="radio" name="payment" id="payment-cod" value="cod" class="test-class-1" data-test="data-test" />
               <span>Cash on Delivery</span>
             </label>
           </div>
 
           <div class="form-group">
             <label for="gift-wrap">Gift Options</label>
-            <select id="gift-wrap">
+            <select class="test-class-1" data-test="data-test" id="gift-wrap">
               <option value="none">No gift wrapping</option>
               <option value="standard">Standard gift wrap (+$3.99)</option>
               <option value="premium">Premium gift wrap (+$7.99)</option>
@@ -407,7 +407,7 @@
 
           <div class="form-group">
             <label for="gift-extras">Gift Wrapping Extras (hold Ctrl/Cmd to select multiple)</label>
-            <select id="gift-extras" name="gift-extras" multiple size="3">
+            <select class="test-class-1" data-test="data-test" id="gift-extras" name="gift-extras" multiple size="3">
               <option value="box">Box</option>
               <option value="decoration">Decoration</option>
               <option value="gift-card">Gift card</option>
@@ -417,23 +417,23 @@
           <div class="checkbox-group">
             <p class="section-label">Marketing Preferences</p>
             <label class="checkbox-item highlight">
-              <input type="checkbox" id="consent-all" name="consent-all" />
+              <input class="test-class-1" data-test="data-test" type="checkbox" id="consent-all" name="consent-all" />
               <span>I consent to receive marketing communications via all channels</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="consent-newsletter" name="consent-newsletter" />
+              <input class="test-class-1" data-test="data-test" type="checkbox" id="consent-newsletter" name="consent-newsletter" />
               <span>Subscribe to our newsletter for exclusive deals and updates</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="consent-sms" name="consent-sms" />
+              <input class="test-class-1" data-test="data-test" type="checkbox" id="consent-sms" name="consent-sms" />
               <span>I agree to receive SMS notifications about orders and promotions</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="consent-whatsapp" name="consent-whatsapp" />
+              <input class="test-class-1" data-test="data-test"  type="checkbox" id="consent-whatsapp" name="consent-whatsapp" />
               <span>I agree to receive WhatsApp messages for order updates</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="consent-phone" name="consent-phone" />
+              <input class="test-class-1" data-test="data-test" type="checkbox" id="consent-phone" name="consent-phone" />
               <span>I agree to receive promotional calls</span>
             </label>
           </div>
@@ -441,18 +441,18 @@
           <div class="checkbox-group">
             <p class="section-label">Order Options</p>
             <label class="checkbox-item">
-              <input type="checkbox" id="save-info" name="save-info" checked />
+              <input class="test-class-1" data-test="data-test" type="checkbox" id="save-info" name="save-info" checked />
               <span>Save my information for faster checkout next time</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="order-updates" name="order-updates" checked />
+              <input class="test-class-1" data-test="data-test" type="checkbox" id="order-updates" name="order-updates" checked />
               <span>Send me order status updates via email</span>
             </label>
           </div>
 
           <div class="checkbox-group">
             <label class="checkbox-item">
-              <input type="checkbox" id="terms" name="terms" required />
+              <input class="test-class-1" data-test="data-test" type="checkbox" id="terms" name="terms" required />
               <span>I agree to the Terms of Service and Privacy Policy *</span>
             </label>
           </div>
