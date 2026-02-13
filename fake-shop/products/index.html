@@ -63,6 +63,12 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
     .logo {
       font-size: 1.5rem;
       font-weight: 700;
@@ -72,6 +78,21 @@
 
     .logo span {
       color: var(--primary);
+    }
+
+    .config-link {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+
+    .config-link:hover {
+      background-color: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
     }
 
     .cart-button {
@@ -195,6 +216,39 @@
       color: white;
     }
 
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      background-color: white;
+      color: var(--dark);
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .category-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-color: var(--primary);
+    }
+
+    .category-btn.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
     footer {
       text-align: center;
       padding: 2rem;
@@ -207,7 +261,10 @@
 </head>
 <body>
   <header>
-    <a href="/" class="logo">Acoustic<span>Shop</span></a>
+    <div class="header-left">
+      <a href="../../index.html" class="config-link">Configuration</a>
+      <a href="./" class="logo">Acoustic<span>Shop</span></a>
+    </div>
     <a href="../cart/index.html" class="cart-button">
       Cart
       <span class="cart-badge" id="cart-count">0</span>
@@ -218,6 +275,14 @@
     <div class="page-title">
       <h1>Our Products</h1>
       <p>Discover our curated collection of quality items</p>
+    </div>
+
+    <div class="categories">
+      <a href="?category=all" class="category-btn" data-category="all">All Products</a>
+      <a href="?category=electronics" class="category-btn" data-category="electronics">Electronics</a>
+      <a href="?category=clothing" class="category-btn" data-category="clothing">Clothing</a>
+      <a href="?category=home" class="category-btn" data-category="home">Home & Garden</a>
+      <a href="?category=sports" class="category-btn" data-category="sports">Sports</a>
     </div>
 
     <div class="product-grid">
@@ -294,7 +359,20 @@
       document.getElementById('cart-count').textContent = totalCount;
     }
 
+    function highlightActiveCategory() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const category = urlParams.get('category') || 'all';
+
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.category === category) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
     updateCartCount();
+    highlightActiveCategory();
   </script>
 </body>
 </html>
