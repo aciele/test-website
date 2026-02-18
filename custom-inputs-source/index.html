@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Custom Inputs - Acoustic Connect</title>
 
+    <!-- GitHub Pages SPA routing fix -->
+    <script>
+      // Restore path from 404.html redirect
+      (function() {
+        var redirect = sessionStorage.getItem('redirect');
+        if (redirect && redirect !== location.pathname) {
+          sessionStorage.removeItem('redirect');
+          history.replaceState(null, '', redirect);
+        }
+      })();
+    </script>
+
     <!-- Load SDK from parent directory -->
     <script src="../scripts/acoconnect.js"></script>
     <script>
