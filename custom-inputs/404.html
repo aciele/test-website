@@ -6,11 +6,16 @@
 
     <!-- GitHub Pages SPA redirect script -->
     <script>
-      // Store the path in sessionStorage so index.html can restore it
+      // Store the full path so index.html can restore it
       sessionStorage.setItem('redirect', location.pathname + location.search + location.hash);
 
-      // Redirect to index.html
-      location.replace(location.origin + location.pathname.split('/').slice(0, -1).join('/') + '/');
+      // Redirect to /test-website/custom-inputs/ (the base of the SPA)
+      // This handles routes like /test-website/custom-inputs/antd
+      var basePath = location.pathname.includes('/test-website/')
+        ? '/test-website/custom-inputs/'
+        : '/custom-inputs/';
+
+      location.replace(location.origin + basePath);
     </script>
   </head>
   <body>
