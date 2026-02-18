@@ -5,7 +5,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/test-website/custom-inputs/',
+  // Use relative paths - works for both GitHub Pages and local Docker
+  base: './',
   plugins: [react(), tailwindcss()],
   build: {
     outDir: '../custom-inputs',
