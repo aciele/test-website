@@ -1,0 +1,38 @@
+{
+  "materialUI": {
+    "hasContent": true,
+    "hasTextInput": true,
+    "hasSelect": true,
+    "hasCheckbox": true,
+    "hasRadio": true,
+    "hasSwitch": true,
+    "hasSlider": true
+  },
+  "shadcn": {
+    "hasContent": true,
+    "hasTextInput": true,
+    "hasSelect": true,
+    "hasCheckbox": true,
+    "hasRadio": true,
+    "hasSwitch": true,
+    "hasSlider": true
+  },
+  "antDesign": {
+    "hasContent": true,
+    "hasTextInput": true,
+    "hasSelect": true,
+    "hasCheckbox": true,
+    "hasRadio": true,
+    "hasSwitch": true,
+    "hasSlider": true
+  },
+  "chakra": {
+    "hasContent": true,
+    "hasTextInput": true,
+    "hasSelect": true,
+    "hasCheckbox": true,
+    "hasRadio": true,
+    "hasSwitch": true,
+    "hasSlider": true
+  }
+}
