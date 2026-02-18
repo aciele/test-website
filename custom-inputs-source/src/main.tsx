@@ -6,7 +6,7 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename="/custom-inputs">
+    <BrowserRouter basename="/test-website/custom-inputs">
       <App />
     </BrowserRouter>
   </StrictMode>,
