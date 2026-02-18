@@ -5,7 +5,12 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/custom-inputs/',
   plugins: [react(), tailwindcss()],
+  build: {
+    outDir: '../custom-inputs',
+    emptyOutDir: true,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
