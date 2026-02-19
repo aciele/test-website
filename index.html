@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,7 +81,8 @@
             color: var(--acoustic-dark);
         }
 
-        select, input[type="text"] {
+        select,
+        input[type="text"] {
             width: 100%;
             padding: 0.75rem 1rem;
             font-size: 0.95rem;
@@ -90,7 +92,8 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        select:focus, input[type="text"]:focus {
+        select:focus,
+        input[type="text"]:focus {
             outline: none;
             border-color: var(--acoustic-blue);
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
@@ -187,6 +190,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Acoustic Connect - Test Website</h1>
@@ -205,40 +209,58 @@
                 <select id="appKeySelect">
                     <option value="">Select appKey from list or provide it to the input</option>
                     <!-- DEV - Helldivers DEV -->
-                    <option value="d6fd136d05674478b035a43d4ffed651">DEV - Helldivers DEV - MIGRATED MANUALLY FROM TEALEAF BY ACIELE</option>
-                    <option value="27f26f34ff644b2f83eb190f165f8551">DEV - Helldivers DEV - Web and Mobile app -- smk-test</option>
+                    <option value="d6fd136d05674478b035a43d4ffed651">DEV - Helldivers DEV - MIGRATED MANUALLY FROM
+                        TEALEAF BY ACIELE</option>
+                    <option value="27f26f34ff644b2f83eb190f165f8551">DEV - Helldivers DEV - Web and Mobile app --
+                        smk-test</option>
                     <option value="d47f0199de684bf1b47e86d23808d63c">DEV - Helldivers DEV - Shopify</option>
                     <!-- DEV - Tea-Rex Ultimate -->
-                    <option value="8347ad0540eb464587343b5e9e653021">DEV - Tea-Rex Ultimate - MIGRATED MANUALLY FROM TEALEAF BY ACIELE</option>
+                    <option value="8347ad0540eb464587343b5e9e653021">DEV - Tea-Rex Ultimate - MIGRATED MANUALLY FROM
+                        TEALEAF BY ACIELE</option>
                     <option value="ce76350d43b64ecc8094c95e560390f6">DEV - Tea-Rex Ultimate - Salesforce</option>
                     <option value="83ebe3fdc6384cc9a072ff20d897f539">DEV - Tea-Rex Ultimate - S3 Import</option>
                     <option value="b467b458643b4ea49be0098da82575ef">DEV - Tea-Rex Ultimate - TestingApp</option>
-                    <option value="bc204ed7518944d7b88aab7424aa51c8">DEV - Tea-Rex Ultimate - acoustic-local.myshopify.com</option>
+                    <option value="bc204ed7518944d7b88aab7424aa51c8">DEV - Tea-Rex Ultimate -
+                        acoustic-local.myshopify.com</option>
                     <option value="6e54ce8b1b6d42c8ba315d40b5f44323">DEV - Tea-Rex Ultimate - Salesforce (2)</option>
                     <option value="79b1c30663984f5db9cfda7f412fb831">DEV - Tea-Rex Ultimate - Shopify</option>
                     <option value="77f4bb02c244407f849888378be4937c">DEV - Tea-Rex Ultimate - Shopify (2)</option>
                     <!-- DEV - Auto Sessions Ultimate DEV -->
-                    <option value="4673c6093821452d94452bcf6d2aedb2">DEV - Auto Sessions Ultimate DEV - AutoTestAppUltimateDev</option>
+                    <option value="4673c6093821452d94452bcf6d2aedb2">DEV - Auto Sessions Ultimate DEV -
+                        AutoTestAppUltimateDev</option>
                     <!-- SQA - Helldivers QA Ultimate -->
-                    <option value="30531735c6a74804b0bfc120d1b1543e">SQA - Helldivers QA Ultimate - asd.myshopify.com</option>
-                    <option value="b579e19eda54493e82435132f28409ac">SQA - Helldivers QA Ultimate - Super TEST Apka</option>
-                    <option value="dd78e8769ec94516bcbf9fcd6d2020f7">SQA - Helldivers QA Ultimate - Web + Mobile WIZARD</option>
-                    <option value="53ec51b8a20f4c9f8b81fbd9e7b27721">SQA - Helldivers QA Ultimate - Android Push</option>
+                    <option value="30531735c6a74804b0bfc120d1b1543e">SQA - Helldivers QA Ultimate - asd.myshopify.com
+                    </option>
+                    <option value="b579e19eda54493e82435132f28409ac">SQA - Helldivers QA Ultimate - Super TEST Apka
+                    </option>
+                    <option value="dd78e8769ec94516bcbf9fcd6d2020f7">SQA - Helldivers QA Ultimate - Web + Mobile WIZARD
+                    </option>
+                    <option value="53ec51b8a20f4c9f8b81fbd9e7b27721">SQA - Helldivers QA Ultimate - Android Push
+                    </option>
                     <option value="4fcb385a19524832bfb55052369d1188">SQA - Helldivers QA Ultimate - Salesforce</option>
-                    <option value="9904e0cb762143a786c723e97b815932">SQA - Helldivers QA Ultimate - Web + Mobile + Push</option>
-                    <option value="7ac5edf7677746ed84ed864ad7e3e5ea">SQA - Helldivers QA Ultimate - Web and Mobile app</option>
+                    <option value="9904e0cb762143a786c723e97b815932">SQA - Helldivers QA Ultimate - Web + Mobile + Push
+                    </option>
+                    <option value="7ac5edf7677746ed84ed864ad7e3e5ea">SQA - Helldivers QA Ultimate - Web and Mobile app
+                    </option>
                     <option value="379a9c1e6bb5438b9b72775400ebd799">SQA - Helldivers QA Ultimate - TestApp</option>
-                    <option value="c889fb7db41d4c88b86eef50fecc23bc">SQA - Helldivers QA Ultimate - PrestashopQa</option>
+                    <option value="c889fb7db41d4c88b86eef50fecc23bc">SQA - Helldivers QA Ultimate - PrestashopQa
+                    </option>
                     <!-- SQA - Auto Sessions Ultimate QA -->
-                    <option value="602cae9220584899adc80c9c26495e34">SQA - Auto Sessions Ultimate QA - AutoTestAppUltimateQa</option>
+                    <option value="602cae9220584899adc80c9c26495e34">SQA - Auto Sessions Ultimate QA -
+                        AutoTestAppUltimateQa</option>
                     <!-- PROD us-east-1 - Helldivers US-1 Ultimate -->
-                    <option value="f1cee19dfdc5488fa56855ee61cb8ceb">PROD us-east-1 - Helldivers US-1 Ultimate - PrestashopProd</option>
-                    <option value="bb819dbb237245569d9f016d79e3c7b8">PROD us-east-1 - Helldivers US-1 Ultimate - App1</option>
+                    <option value="f1cee19dfdc5488fa56855ee61cb8ceb">PROD us-east-1 - Helldivers US-1 Ultimate -
+                        PrestashopProd</option>
+                    <option value="bb819dbb237245569d9f016d79e3c7b8">PROD us-east-1 - Helldivers US-1 Ultimate - App1
+                    </option>
                     <!-- PROD eu-central-1 - TeaRexUltimateEU -->
-                    <option value="4be73b56b3aa416d9c987bf23a37434a">PROD eu-central-1 - TeaRexUltimateEU - TestApp</option>
-                    <option value="3dd220295709482cb8ff6c48a9bdd1c1">PROD eu-central-1 - TeaRexUltimateEU - HTML Website</option>
+                    <option value="4be73b56b3aa416d9c987bf23a37434a">PROD eu-central-1 - TeaRexUltimateEU - TestApp
+                    </option>
+                    <option value="3dd220295709482cb8ff6c48a9bdd1c1">PROD eu-central-1 - TeaRexUltimateEU - HTML Website
+                    </option>
                     <!-- PROD ap-southeast-2 - TeaRexUltimateAP -->
-                    <option value="ea6dc829102e42a28e96c7f74a5c9b2c">PROD ap-southeast-2 - TeaRexUltimateAP - Web application - regression tests</option>
+                    <option value="ea6dc829102e42a28e96c7f74a5c9b2c">PROD ap-southeast-2 - TeaRexUltimateAP - Web
+                        application - regression tests</option>
                 </select>
             </div>
 
@@ -250,12 +272,17 @@
             <div class="form-group">
                 <label for="wsCollectorUrl">Collector URL</label>
                 <select id="wsCollectorUrl">
-                    <option value="https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost">DEV</option>
+                    <option value="https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost">DEV
+                    </option>
                     <option value="https://collector-eaoc.qa.goacoustic.com/collector/collectorPost">Shared QA</option>
-                    <option value="https://lib-us-1.brilliantcollector.com/collector/collectorPost">Production us-east-1</option>
-                    <option value="https://lib-ap-1.brilliantcollector.com/collector/collectorPost">Production ap-southeast-2</option>
-                    <option value="https://lib-eu-1.brilliantcollector.com/collector/collectorPost">Production eu-central-1</option>
-                    <option value="https://lib-us-2.brilliantcollector.com/collector/collectorPost">Production (Tealeaf WDC)</option>
+                    <option value="https://lib-us-1.brilliantcollector.com/collector/collectorPost">Production us-east-1
+                    </option>
+                    <option value="https://lib-ap-1.brilliantcollector.com/collector/collectorPost">Production
+                        ap-southeast-2</option>
+                    <option value="https://lib-eu-1.brilliantcollector.com/collector/collectorPost">Production
+                        eu-central-1</option>
+                    <option value="https://lib-us-2.brilliantcollector.com/collector/collectorPost">Production (Tealeaf
+                        WDC)</option>
                     <option value="http://localhost:8083/collector/collectorPost">localhost:8083</option>
                 </select>
             </div>
@@ -270,7 +297,6 @@
             <h2>Developer Tools</h2>
             <div class="link-grid">
                 <a href="tools/log-signal.html" class="highlight-link">Log Signal Tester</a>
-                <a href="custom-inputs/" class="highlight-link">Custom Inputs Test Suite</a>
             </div>
 
             <h2>Shop Pages</h2>
@@ -284,8 +310,9 @@
                 <a href="basic-pages/index.html">Index Page</a>
                 <a href="basic-pages/second-page.html">Second Page</a>
                 <a href="basic-pages/form-inputs.html" class="highlight-link">Inputs</a>
+                <a href="custom-inputs/" class="highlight-link">Custom Inputs Test Suite</a>
                 <a href="basic-pages/shadow-styles.html">Shadow DOM Stylesheets</a>
-                
+
                 <div class="section-divider">Advanced Test Cases</div>
                 <a href="basic-pages/test-cases-shadow-dom.html">Advanced Test Cases 1</a>
                 <a href="basic-pages/test-cases-shadow-dom-separate-testing.html">Advanced Test Cases 2</a>
@@ -356,7 +383,7 @@
         }
 
         // Handle select change - update input value
-        appKeySelect.addEventListener('change', function() {
+        appKeySelect.addEventListener('change', function () {
             if (this.value) {
                 document.getElementById('appKey').value = this.value;
             }
@@ -367,4 +394,5 @@
         document.getElementById('clearButton').addEventListener('click', clearLS);
     </script>
 </body>
+
 </html>
