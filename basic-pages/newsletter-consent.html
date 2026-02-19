@@ -17,9 +17,7 @@
                 cbType: "messageRedirect",
                 cbFunction: (function () {
                     return function (msg, msgObj) {
-                        if (msgObj.type !== 4 && msgObj.type !== 12) { return; }
-
-                        console.log("event ", msgObj.event);
+                        if (msgObj.type !== 4 && msgObj.type !== 12 && msgObj.type !== 2 && msgObj.type !== 15 && msgObj.type !== 5) { return; }
                         console.log(msgObj);
                         return msgObj;
                     };
@@ -172,8 +170,8 @@
         }
 
         /* Checked state for checkbox */
-        .custom-checkbox-label input[type="checkbox"]:checked + span::before,
-        .custom-checkbox-label input[type="checkbox"]:checked ~ ::before {
+        .custom-checkbox-label input[type="checkbox"]:checked+span::before,
+        .custom-checkbox-label input[type="checkbox"]:checked~ ::before {
             background-color: #007bff;
             border-color: #007bff;
         }
@@ -185,7 +183,7 @@
         }
 
         /* Better approach - checkmark after the label itself when input is checked */
-        .custom-checkbox-label input[type="checkbox"]:checked ~ .checkmark::after {
+        .custom-checkbox-label input[type="checkbox"]:checked~.checkmark::after {
             display: block;
         }
 
@@ -216,7 +214,7 @@
         }
 
         /* Focus state for accessibility */
-        .custom-checkbox-label input[type="checkbox"]:focus + span::before,
+        .custom-checkbox-label input[type="checkbox"]:focus+span::before,
         .custom-checkbox-label:has(input[type="checkbox"]:focus)::before {
             box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
         }
