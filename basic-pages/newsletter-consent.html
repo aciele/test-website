@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Acoustic Tealeaf SDK -->
+    <script src="../scripts/acoconnect.js"></script>
+    <script>
+        (function () {
+            var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+            var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+            window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+
+            TLT.registerBridgeCallbacks([{
+                enabled: true,
+                cbType: "messageRedirect",
+                cbFunction: (function () {
+                    return function (msg, msgObj) {
+                        if (msgObj.type !== 4 && msgObj.type !== 12) { return; }
+
+                        console.log("event ", msgObj.event);
+                        console.log(msgObj);
+                        return msgObj;
+                    }
+                        ;
+                }())
+            }]);
+        })();
+    </script>
+
+    <title>Newsletter & Consent Form Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .form-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-item label,
+        .checkbox-item label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .section-badge.js-badge {
+            background-color: #28a745;
+        }
+
+        .form-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #007bff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Newsletter & Consent Form Test Page</h1>
+
+    <!-- Form 1: HTML Attributes -->
+    <form id="form1" class="form-section">
+        <span class="section-badge">Form 1: HTML Attributes</span>
+        <h2>Subscribe to Our Newsletter</h2>
+        <p class="form-description">
+            This form demonstrates default values set using standard HTML attributes (value="...", checked, selected).
+        </p>
+
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" class="input-email-field" data-type="email"
+                data-category="contact" placeholder="your.email@example.com" value="user@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" class="input-text-field" data-type="text" data-category="personal"
+                placeholder="John Doe" value="John Doe" required>
+        </div>
+
+        <div class="form-group">
+            <label>Newsletter Preferences:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="newsletter-weekly" name="newsletterWeekly" class="input-checkbox-field"
+                        data-type="checkbox" data-category="preferences" value="weekly" checked>
+                    <label for="newsletter-weekly">Receive weekly newsletter</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="newsletter-updates" name="newsletterUpdates" class="input-checkbox-field"
+                        data-type="checkbox" data-category="preferences" value="updates" checked>
+                    <label for="newsletter-updates">Receive product updates</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="newsletter-offers" name="newsletterOffers" class="input-checkbox-field"
+                        data-type="checkbox" data-category="preferences" value="offers">
+                    <label for="newsletter-offers">Receive special offers</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Preferred Contact Method:</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="contact-email" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="email" checked>
+                    <label for="contact-email">Email</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="contact-sms" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="sms">
+                    <label for="contact-sms">SMS</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="contact-phone" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="phone">
+                    <label for="contact-phone">Phone</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <select id="country" name="country" class="input-select-field" data-type="select" data-category="location"
+                required>
+                <option value="">Choose your country</option>
+                <option value="us" selected>United States</option>
+                <option value="ca">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="de">Germany</option>
+                <option value="fr">France</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox-item">
+                <input type="checkbox" id="terms" name="terms" class="input-checkbox-field" data-type="checkbox"
+                    data-category="consent" value="agreed" checked required>
+                <label for="terms">I agree to the Terms and Conditions and Privacy Policy</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="submit-form1" class="button-submit-field" data-type="submit"
+                data-category="action">
+                Subscribe Now
+            </button>
+        </div>
+    </form>
+
+    <!-- Form 2: JavaScript Defaults -->
+    <form id="form2" class="form-section">
+        <span class="section-badge js-badge">Form 2: JavaScript Defaults</span>
+        <h2>Subscribe to Our Newsletter</h2>
+        <p class="form-description">
+            This form demonstrates default values set dynamically via JavaScript on page load (no HTML attributes).
+        </p>
+
+        <div class="form-group">
+            <label for="js-email">Email Address:</label>
+            <input type="email" id="js-email" name="email" class="input-email-field" data-type="email"
+                data-category="contact" placeholder="your.email@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="js-name">Full Name:</label>
+            <input type="text" id="js-name" name="name" class="input-text-field" data-type="text"
+                data-category="personal" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+            <label>Newsletter Preferences:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="js-newsletter-weekly" name="newsletterWeekly"
+                        class="input-checkbox-field" data-type="checkbox" data-category="preferences" value="weekly">
+                    <label for="js-newsletter-weekly">Receive weekly newsletter</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="js-newsletter-updates" name="newsletterUpdates"
+                        class="input-checkbox-field" data-type="checkbox" data-category="preferences" value="updates">
+                    <label for="js-newsletter-updates">Receive product updates</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="js-newsletter-offers" name="newsletterOffers"
+                        class="input-checkbox-field" data-type="checkbox" data-category="preferences" value="offers">
+                    <label for="js-newsletter-offers">Receive special offers</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Preferred Contact Method:</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="js-contact-email" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="email">
+                    <label for="js-contact-email">Email</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="js-contact-sms" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="sms">
+                    <label for="js-contact-sms">SMS</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="js-contact-phone" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="phone">
+                    <label for="js-contact-phone">Phone</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="js-country">Country:</label>
+            <select id="js-country" name="country" class="input-select-field" data-type="select"
+                data-category="location" required>
+                <option value="">Choose your country</option>
+                <option value="us">United States</option>
+                <option value="ca">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="de">Germany</option>
+                <option value="fr">France</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox-item">
+                <input type="checkbox" id="js-terms" name="terms" class="input-checkbox-field" data-type="checkbox"
+                    data-category="consent" value="agreed" required>
+                <label for="js-terms">I agree to the Terms and Conditions and Privacy Policy</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="submit-form2" class="button-submit-field" data-type="submit"
+                data-category="action">
+                Subscribe Now
+            </button>
+        </div>
+    </form>
+
+    <script>
+        // Set default values dynamically for Form 2 (JavaScript)
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set text inputs
+            document.getElementById('js-email').value = 'user@example.com';
+            document.getElementById('js-name').value = 'John Doe';
+
+            // Set checkboxes
+            document.getElementById('js-newsletter-weekly').checked = true;
+            document.getElementById('js-newsletter-updates').checked = true;
+            // js-newsletter-offers stays unchecked (default)
+
+            // Set radio button
+            document.getElementById('js-contact-email').checked = true;
+
+            // Set select dropdown
+            document.getElementById('js-country').value = 'us';
+
+            // Set terms checkbox
+            document.getElementById('js-terms').checked = true;
+
+            console.log('Form 2 default values set via JavaScript');
+        });
+
+        // Form submission handlers
+        document.getElementById('form1').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            console.log('Form 1 submitted:', data);
+            alert('Form 1 submitted! Check console for details.');
+        });
+
+        document.getElementById('form2').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            console.log('Form 2 submitted:', data);
+            alert('Form 2 submitted! Check console for details.');
+        });
+    </script>
+</body>
+
+</html>
