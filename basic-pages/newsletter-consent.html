@@ -22,8 +22,7 @@
                         console.log("event ", msgObj.event);
                         console.log(msgObj);
                         return msgObj;
-                    }
-                        ;
+                    };
                 }())
             }]);
         })();
@@ -68,29 +67,11 @@
             box-sizing: border-box;
         }
 
-        input[type="radio"],
-        input[type="checkbox"] {
-            width: auto;
-            margin-right: 5px;
-        }
-
         .radio-group,
         .checkbox-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .radio-item,
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-        }
-
-        .radio-item label,
-        .checkbox-item label {
-            font-weight: normal;
-            margin-bottom: 0;
+            gap: 10px;
         }
 
         h1 {
@@ -144,6 +125,177 @@
             border-left: 3px solid #007bff;
             border-radius: 4px;
         }
+
+        /* Custom Checkbox Styling */
+        .custom-checkbox-label {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 30px;
+            cursor: pointer;
+            font-weight: normal;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .custom-checkbox-label:hover {
+            color: #007bff;
+        }
+
+        /* Hide native checkbox */
+        .custom-checkbox-label input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Custom checkbox square */
+        .custom-checkbox-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+
+        /* Hover state for checkbox */
+        .custom-checkbox-label:hover::before {
+            border-color: #007bff;
+        }
+
+        /* Checked state for checkbox */
+        .custom-checkbox-label input[type="checkbox"]:checked + span::before,
+        .custom-checkbox-label input[type="checkbox"]:checked ~ ::before {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        /* Alternative approach - using direct sibling */
+        .custom-checkbox-label input[type="checkbox"]:checked::before {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        /* Better approach - checkmark after the label itself when input is checked */
+        .custom-checkbox-label input[type="checkbox"]:checked ~ .checkmark::after {
+            display: block;
+        }
+
+        /* Checkmark styling */
+        .custom-checkbox-label::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+
+        /* Show checkmark when checked */
+        .custom-checkbox-label:has(input[type="checkbox"]:checked)::before {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .custom-checkbox-label:has(input[type="checkbox"]:checked)::after {
+            opacity: 1;
+        }
+
+        /* Focus state for accessibility */
+        .custom-checkbox-label input[type="checkbox"]:focus + span::before,
+        .custom-checkbox-label:has(input[type="checkbox"]:focus)::before {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        /* Custom Radio Button Styling */
+        .custom-radio-label {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 30px;
+            cursor: pointer;
+            font-weight: normal;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .custom-radio-label:hover {
+            color: #007bff;
+        }
+
+        /* Hide native radio */
+        .custom-radio-label input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Custom radio circle */
+        .custom-radio-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+
+        /* Hover state for radio */
+        .custom-radio-label:hover::before {
+            border-color: #007bff;
+        }
+
+        /* Inner dot for radio */
+        .custom-radio-label::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #007bff;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        /* Checked state for radio */
+        .custom-radio-label:has(input[type="radio"]:checked)::before {
+            border-color: #007bff;
+            border-width: 2px;
+            background-color: white;
+        }
+
+        .custom-radio-label:has(input[type="radio"]:checked)::after {
+            opacity: 1;
+        }
+
+        /* Focus state for accessibility */
+        .custom-radio-label:has(input[type="radio"]:focus)::before {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
     </style>
 </head>
 
@@ -173,42 +325,42 @@
         <div class="form-group">
             <label>Newsletter Preferences:</label>
             <div class="checkbox-group">
-                <div class="checkbox-item">
+                <label class="custom-checkbox-label">
                     <input type="checkbox" id="newsletter-weekly" name="newsletterWeekly" class="input-checkbox-field"
                         data-type="checkbox" data-category="preferences" value="weekly" checked>
-                    <label for="newsletter-weekly">Receive weekly newsletter</label>
-                </div>
-                <div class="checkbox-item">
+                    <span>Receive weekly newsletter</span>
+                </label>
+                <label class="custom-checkbox-label">
                     <input type="checkbox" id="newsletter-updates" name="newsletterUpdates" class="input-checkbox-field"
                         data-type="checkbox" data-category="preferences" value="updates" checked>
-                    <label for="newsletter-updates">Receive product updates</label>
-                </div>
-                <div class="checkbox-item">
+                    <span>Receive product updates</span>
+                </label>
+                <label class="custom-checkbox-label">
                     <input type="checkbox" id="newsletter-offers" name="newsletterOffers" class="input-checkbox-field"
                         data-type="checkbox" data-category="preferences" value="offers">
-                    <label for="newsletter-offers">Receive special offers</label>
-                </div>
+                    <span>Receive special offers</span>
+                </label>
             </div>
         </div>
 
         <div class="form-group">
             <label>Preferred Contact Method:</label>
             <div class="radio-group">
-                <div class="radio-item">
+                <label class="custom-radio-label">
                     <input type="radio" id="contact-email" name="contactMethod" class="input-radio-field"
                         data-type="radio" data-category="contact-method" value="email" checked>
-                    <label for="contact-email">Email</label>
-                </div>
-                <div class="radio-item">
+                    <span>Email</span>
+                </label>
+                <label class="custom-radio-label">
                     <input type="radio" id="contact-sms" name="contactMethod" class="input-radio-field"
                         data-type="radio" data-category="contact-method" value="sms">
-                    <label for="contact-sms">SMS</label>
-                </div>
-                <div class="radio-item">
+                    <span>SMS</span>
+                </label>
+                <label class="custom-radio-label">
                     <input type="radio" id="contact-phone" name="contactMethod" class="input-radio-field"
                         data-type="radio" data-category="contact-method" value="phone">
-                    <label for="contact-phone">Phone</label>
-                </div>
+                    <span>Phone</span>
+                </label>
             </div>
         </div>
 
@@ -226,11 +378,11 @@
         </div>
 
         <div class="form-group">
-            <div class="checkbox-item">
+            <label class="custom-checkbox-label">
                 <input type="checkbox" id="terms" name="terms" class="input-checkbox-field" data-type="checkbox"
                     data-category="consent" value="agreed" checked required>
-                <label for="terms">I agree to the Terms and Conditions and Privacy Policy</label>
-            </div>
+                <span>I agree to the Terms and Conditions and Privacy Policy</span>
+            </label>
         </div>
 
         <div class="form-group">
@@ -264,42 +416,42 @@
         <div class="form-group">
             <label>Newsletter Preferences:</label>
             <div class="checkbox-group">
-                <div class="checkbox-item">
+                <label class="custom-checkbox-label">
                     <input type="checkbox" id="js-newsletter-weekly" name="newsletterWeekly"
                         class="input-checkbox-field" data-type="checkbox" data-category="preferences" value="weekly">
-                    <label for="js-newsletter-weekly">Receive weekly newsletter</label>
-                </div>
-                <div class="checkbox-item">
+                    <span>Receive weekly newsletter</span>
+                </label>
+                <label class="custom-checkbox-label">
                     <input type="checkbox" id="js-newsletter-updates" name="newsletterUpdates"
                         class="input-checkbox-field" data-type="checkbox" data-category="preferences" value="updates">
-                    <label for="js-newsletter-updates">Receive product updates</label>
-                </div>
-                <div class="checkbox-item">
+                    <span>Receive product updates</span>
+                </label>
+                <label class="custom-checkbox-label">
                     <input type="checkbox" id="js-newsletter-offers" name="newsletterOffers"
                         class="input-checkbox-field" data-type="checkbox" data-category="preferences" value="offers">
-                    <label for="js-newsletter-offers">Receive special offers</label>
-                </div>
+                    <span>Receive special offers</span>
+                </label>
             </div>
         </div>
 
         <div class="form-group">
             <label>Preferred Contact Method:</label>
             <div class="radio-group">
-                <div class="radio-item">
+                <label class="custom-radio-label">
                     <input type="radio" id="js-contact-email" name="contactMethod" class="input-radio-field"
                         data-type="radio" data-category="contact-method" value="email">
-                    <label for="js-contact-email">Email</label>
-                </div>
-                <div class="radio-item">
+                    <span>Email</span>
+                </label>
+                <label class="custom-radio-label">
                     <input type="radio" id="js-contact-sms" name="contactMethod" class="input-radio-field"
                         data-type="radio" data-category="contact-method" value="sms">
-                    <label for="js-contact-sms">SMS</label>
-                </div>
-                <div class="radio-item">
+                    <span>SMS</span>
+                </label>
+                <label class="custom-radio-label">
                     <input type="radio" id="js-contact-phone" name="contactMethod" class="input-radio-field"
                         data-type="radio" data-category="contact-method" value="phone">
-                    <label for="js-contact-phone">Phone</label>
-                </div>
+                    <span>Phone</span>
+                </label>
             </div>
         </div>
 
@@ -317,11 +469,11 @@
         </div>
 
         <div class="form-group">
-            <div class="checkbox-item">
+            <label class="custom-checkbox-label">
                 <input type="checkbox" id="js-terms" name="terms" class="input-checkbox-field" data-type="checkbox"
                     data-category="consent" value="agreed" required>
-                <label for="js-terms">I agree to the Terms and Conditions and Privacy Policy</label>
-            </div>
+                <span>I agree to the Terms and Conditions and Privacy Policy</span>
+            </label>
         </div>
 
         <div class="form-group">
