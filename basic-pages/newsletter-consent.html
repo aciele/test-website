@@ -340,12 +340,12 @@
         }
 
         /* Checked state - track changes color */
-        .toggle-label input[type="checkbox"]:checked ~ .toggle-slider {
+        .toggle-label input[type="checkbox"]:checked~.toggle-slider {
             background-color: #007bff;
         }
 
         /* Checked state - thumb moves right */
-        .toggle-label input[type="checkbox"]:checked ~ .toggle-slider::after {
+        .toggle-label input[type="checkbox"]:checked~.toggle-slider::after {
             transform: translateX(24px);
         }
 
@@ -355,7 +355,7 @@
         }
 
         /* Focus state for accessibility */
-        .toggle-label input[type="checkbox"]:focus ~ .toggle-slider {
+        .toggle-label input[type="checkbox"]:focus~.toggle-slider {
             box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
         }
 
@@ -385,13 +385,13 @@
 
         <div class="form-group">
             <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" class="input-email-field" data-type="email"
-                data-category="contact" placeholder="your.email@example.com" value="user@example.com" required>
+            <input type="email" name="email" class="input-email-field" data-type="email" data-category="contact"
+                placeholder="your.email@example.com" value="user@example.com" required>
         </div>
 
         <div class="form-group">
             <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" class="input-text-field" data-type="text" data-category="personal"
+            <input type="text" name="name" class="input-text-field" data-type="text" data-category="personal"
                 placeholder="John Doe" value="John Doe" required>
         </div>
 
@@ -399,18 +399,18 @@
             <label>Newsletter Preferences:</label>
             <div class="checkbox-group">
                 <label class="custom-checkbox-label">
-                    <input type="checkbox" id="newsletter-weekly" name="newsletterWeekly" class="input-checkbox-field"
-                        data-type="checkbox" data-category="preferences" value="weekly" checked>
+                    <input type="checkbox" name="newsletterWeekly" class="input-checkbox-field" data-type="checkbox"
+                        data-category="preferences" value="weekly" checked>
                     <span>Receive weekly newsletter</span>
                 </label>
                 <label class="custom-checkbox-label">
-                    <input type="checkbox" id="newsletter-updates" name="newsletterUpdates" class="input-checkbox-field"
-                        data-type="checkbox" data-category="preferences" value="updates" checked>
+                    <input type="checkbox" name="newsletterUpdates" class="input-checkbox-field" data-type="checkbox"
+                        data-category="preferences" value="updates" checked>
                     <span>Receive product updates</span>
                 </label>
                 <label class="custom-checkbox-label">
-                    <input type="checkbox" id="newsletter-offers" name="newsletterOffers" class="input-checkbox-field"
-                        data-type="checkbox" data-category="preferences" value="offers">
+                    <input type="checkbox" name="newsletterOffers" class="input-checkbox-field" data-type="checkbox"
+                        data-category="preferences" value="offers">
                     <span>Receive special offers</span>
                 </label>
             </div>
@@ -418,9 +418,8 @@
 
         <div class="form-group">
             <label class="toggle-label">
-                <input type="checkbox" id="push-notifications" name="pushNotifications"
-                       class="input-checkbox-field" data-type="checkbox"
-                       data-category="notifications" value="enabled" checked>
+                <input type="checkbox" id="push-notifications" name="pushNotifications" class="input-checkbox-field"
+                    data-type="checkbox" data-category="notifications" value="enabled" checked>
                 <span class="toggle-slider"></span>
                 <span class="toggle-text">Enable push notifications</span>
             </label>
@@ -519,9 +518,8 @@
 
         <div class="form-group">
             <label class="toggle-label">
-                <input type="checkbox" id="js-push-notifications" name="pushNotifications"
-                       class="input-checkbox-field" data-type="checkbox"
-                       data-category="notifications" value="enabled">
+                <input type="checkbox" id="js-push-notifications" name="pushNotifications" class="input-checkbox-field"
+                    data-type="checkbox" data-category="notifications" value="enabled">
                 <span class="toggle-slider"></span>
                 <span class="toggle-text">Enable push notifications</span>
             </label>
