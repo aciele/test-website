@@ -17,8 +17,7 @@
                 cbType: "messageRedirect",
                 cbFunction: (function () {
                     return function (msg, msgObj) {
-                        // if (msgObj.type !== 4 && msgObj.type !== 12 && msgObj.type !== 2 && msgObj.type !== 15 && msgObj.type !== 5) { return; }
-                        if (msgObj.type !== 12 || msgObj.type !== 4) { return; }
+                        if (msgObj.type !== 4 && msgObj.type !== 12 && msgObj.type !== 2 && msgObj.type !== 15 && msgObj.type !== 5) { return; }
                         console.log(msgObj);
                         return msgObj;
                     };
@@ -341,12 +340,12 @@
         }
 
         /* Checked state - track changes color */
-        .toggle-label input[type="checkbox"]:checked~.toggle-slider {
+        .toggle-label input[type="checkbox"]:checked ~ .toggle-slider {
             background-color: #007bff;
         }
 
         /* Checked state - thumb moves right */
-        .toggle-label input[type="checkbox"]:checked~.toggle-slider::after {
+        .toggle-label input[type="checkbox"]:checked ~ .toggle-slider::after {
             transform: translateX(24px);
         }
 
@@ -356,7 +355,7 @@
         }
 
         /* Focus state for accessibility */
-        .toggle-label input[type="checkbox"]:focus~.toggle-slider {
+        .toggle-label input[type="checkbox"]:focus ~ .toggle-slider {
             box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
         }
 
@@ -386,13 +385,13 @@
 
         <div class="form-group">
             <label for="email">Email Address:</label>
-            <input type="email" name="email" class="input-email-field" data-type="email" data-category="contact"
-                placeholder="your.email@example.com" value="user@example.com" required>
+            <input type="email" id="email" name="email" class="input-email-field" data-type="email"
+                data-category="contact" placeholder="your.email@example.com" value="user@example.com" required>
         </div>
 
         <div class="form-group">
             <label for="name">Full Name:</label>
-            <input type="text" name="name" class="input-text-field" data-type="text" data-category="personal"
+            <input type="text" id="name" name="name" class="input-text-field" data-type="text" data-category="personal"
                 placeholder="John Doe" value="John Doe" required>
         </div>
 
@@ -400,13 +399,13 @@
             <label>Newsletter Preferences:</label>
             <div class="checkbox-group">
                 <label class="custom-checkbox-label">
-                    <input type="checkbox" name="newsletterWeekly" class="input-checkbox-field" data-type="checkbox"
-                        data-category="preferences" value="weekly" checked>
+                    <input type="checkbox" id="newsletter-weekly" name="newsletterWeekly" class="input-checkbox-field"
+                        data-type="checkbox" data-category="preferences" value="weekly" checked>
                     <span>Receive weekly newsletter</span>
                 </label>
                 <label class="custom-checkbox-label">
-                    <input type="checkbox" name="newsletterUpdates" class="input-checkbox-field" data-type="checkbox"
-                        data-category="preferences" value="updates" checked>
+                    <input type="checkbox" id="newsletter-updates" name="newsletterUpdates" class="input-checkbox-field"
+                        data-type="checkbox" data-category="preferences" value="updates" checked>
                     <span>Receive product updates</span>
                 </label>
                 <label class="custom-checkbox-label">
@@ -419,8 +418,9 @@
 
         <div class="form-group">
             <label class="toggle-label">
-                <input type="checkbox" id="push-notifications" name="pushNotifications" class="input-checkbox-field"
-                    data-type="checkbox" data-category="notifications" value="enabled" checked>
+                <input type="checkbox" id="push-notifications" name="pushNotifications"
+                       class="input-checkbox-field" data-type="checkbox"
+                       data-category="notifications" value="enabled" checked>
                 <span class="toggle-slider"></span>
                 <span class="toggle-text">Enable push notifications</span>
             </label>
@@ -430,18 +430,18 @@
             <label>Preferred Contact Method:</label>
             <div class="radio-group">
                 <label class="custom-radio-label">
-                    <input type="radio" name="contactMethod" class="input-radio-field" data-type="radio"
-                        data-category="contact-method" value="email" checked>
+                    <input type="radio" id="contact-email" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="email" checked>
                     <span>Email</span>
                 </label>
                 <label class="custom-radio-label">
-                    <input type="radio" name="contactMethod" class="input-radio-field" data-type="radio"
-                        data-category="contact-method" value="sms">
+                    <input type="radio" id="contact-sms" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="sms">
                     <span>SMS</span>
                 </label>
                 <label class="custom-radio-label">
-                    <input type="radio" name="contactMethod" class="input-radio-field" data-type="radio"
-                        data-category="contact-method" value="phone">
+                    <input type="radio" id="contact-phone" name="contactMethod" class="input-radio-field"
+                        data-type="radio" data-category="contact-method" value="phone">
                     <span>Phone</span>
                 </label>
             </div>
@@ -519,8 +519,9 @@
 
         <div class="form-group">
             <label class="toggle-label">
-                <input type="checkbox" id="js-push-notifications" name="pushNotifications" class="input-checkbox-field"
-                    data-type="checkbox" data-category="notifications" value="enabled">
+                <input type="checkbox" id="js-push-notifications" name="pushNotifications"
+                       class="input-checkbox-field" data-type="checkbox"
+                       data-category="notifications" value="enabled">
                 <span class="toggle-slider"></span>
                 <span class="toggle-text">Enable push notifications</span>
             </label>
@@ -580,22 +581,22 @@
         // Set default values dynamically for Form 2 (JavaScript)
         document.addEventListener('DOMContentLoaded', function () {
             // Set text inputs
-            document.getElementById('js-email').value = 'panda.test@example.com';
-            document.getElementById('js-name').value = 'Panda Kung-fu';
+            document.getElementById('js-email').value = 'user@example.com';
+            document.getElementById('js-name').value = 'John Doe';
 
             // Set checkboxes
             document.getElementById('js-newsletter-weekly').checked = true;
-            document.getElementById('js-newsletter-updates').checked = false;
+            document.getElementById('js-newsletter-updates').checked = true;
             // js-newsletter-offers stays unchecked (default)
 
             // Set toggle switch
             document.getElementById('js-push-notifications').checked = true;
 
             // Set radio button
-            document.getElementById('js-contact-sms').checked = true;
+            document.getElementById('js-contact-email').checked = true;
 
             // Set select dropdown
-            document.getElementById('js-country').value = 'uk';
+            document.getElementById('js-country').value = 'us';
 
             // Set terms checkbox
             document.getElementById('js-terms').checked = true;
