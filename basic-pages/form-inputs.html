@@ -17,10 +17,10 @@
                 cbType: "messageRedirect",
                 cbFunction: (function() {
                     return function(msg, msgObj) {
-                        if (msgObj.type !== 4) { return; }
-    
+                        if (msgObj.type === 4) {
                         console.log("event ", msgObj.event);
                         console.log(msgObj);
+                        }   
                         return msgObj;
                     }
                     ;
