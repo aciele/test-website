@@ -8,8 +8,6 @@ const outDir = join(__dirname, '../../custom-inputs')
 const routes = ['mui', 'shadcn', 'antd', 'chakra']
 
 for (const route of routes) {
-  const dir = join(outDir, route)
-  mkdirSync(dir, { recursive: true })
-  cpSync(join(outDir, 'index.html'), join(dir, 'index.html'))
-  console.log(`✓ ${route}/index.html`)
+  cpSync(join(outDir, 'index.html'), join(outDir, `${route}.html`))
+  console.log(`✓ ${route}.html`)
 }
