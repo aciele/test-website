@@ -7,7 +7,14 @@
     <title>Custom Inputs - Acoustic Connect</title>
 
     <!-- Load SDK -->
-    <script src="/test-website/scripts/acoconnect.js"></script>
+    <script>
+      (function() {
+        var base = window.location.pathname.includes('/test-website/') ? '/test-website' : '';
+        var s = document.createElement('script');
+        s.src = base + '/scripts/acoconnect.js';
+        document.head.appendChild(s);
+      })();
+    </script>
     <script>
       // Initialize SDK with localStorage config (same pattern as other pages)
       (function() {
