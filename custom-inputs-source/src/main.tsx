@@ -1,13 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 
+const basename = window.location.pathname.includes('/test-website/')
+  ? '/test-website/custom-inputs'
+  : '/custom-inputs'
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <HashRouter>
+    <BrowserRouter basename={basename}>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </StrictMode>,
 )
