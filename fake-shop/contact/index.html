@@ -735,7 +735,7 @@
       var payload = buildSignalPayload();
 
       if (window.TLT && typeof window.TLT.logSignal === 'function') {
-        window.TLT.logSignal(payload.signalType, payload);
+        window.TLT.logSignal(payload);
         window.TLT.flushAll();
       } else {
         console.warn('TLT.logSignal not available — payload:', payload);
