@@ -97,7 +97,9 @@
       color: var(--primary);
     }
 
-    .config-link {
+    .nav { display: flex; gap: 0.5rem; }
+
+    .nav-link {
       color: white;
       text-decoration: none;
       font-size: 0.9rem;
@@ -106,41 +108,26 @@
       border-radius: 20px;
       transition: all 0.2s;
     }
-
-    .config-link:hover {
+    .nav-link:hover {
       background-color: rgba(255,255,255,0.1);
       border-color: rgba(255,255,255,0.5);
     }
-
-    .header-actions {
-      display: flex;
-      gap: 1rem;
+    .nav-link.active {
+      background-color: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.7);
     }
 
-    .header-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 30px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      color: var(--dark);
-      transition: transform 0.2s;
-    }
-
-    .header-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .cart-badge {
-      background-color: var(--danger);
-      color: #fff;
-      border-radius: 50%;
-      padding: 0.15rem 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 600;
+    .sdk-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background-color: rgba(0, 102, 204, 0.25);
+      color: #a8c8ff;
+      border: 1px solid rgba(0, 102, 204, 0.5);
+      border-radius: 20px;
+      padding: 0.2rem 0.6rem;
+      white-space: nowrap;
     }
 
     main {
@@ -306,15 +293,17 @@
 <body>
   <header>
     <div class="header-left">
-      <a href="../../../index.html" class="config-link">Configuration</a>
-      <a href="../" class="logo">Acoustic<span>Shop</span></a>
+      <a href="../index.html" class="logo">Acoustic<span>Shop</span></a>
+      <nav class="nav">
+        <a href="../index.html" class="nav-link active">Products</a>
+        <a href="../../contact/index.html" class="nav-link">Contact</a>
+        <a href="../../cart/index.html" class="nav-link">Cart</a>
+        <a href="../../../index.html" class="nav-link">Configuration</a>
+      </nav>
     </div>
-    <div class="header-actions">
-      <a href="../index.html" class="header-btn">Products</a>
-      <a href="../../cart/index.html" class="header-btn">
-        Cart
-        <span class="cart-badge" id="cart-count">0</span>
-      </a>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <button id="flush-btn" onclick="window.TLT && window.TLT.flushAll()" style="padding:0.45rem 1rem;font-size:0.85rem;font-weight:500;background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.35);border-radius:20px;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">Flush SDK Events</button>
+      <span class="sdk-badge">SDK installed</span>
     </div>
   </header>
 
@@ -387,7 +376,8 @@
     function updateCartCount() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-      document.getElementById('cart-count').textContent = totalCount;
+      const el = document.getElementById('cart-count');
+      if (el) el.textContent = totalCount;
     }
 
     updateCartCount();

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="../../../scripts/acoconnect.js"></script>
+  <script>
+    (function() {
+      var appKey = localStorage.getItem('appKey') || '7ac5edf7677746ed84ed864ad7e3e5ea';
+      var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+      window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
+
+      TLT.registerBridgeCallbacks([{
+        enabled: true,
+        cbType: "messageRedirect",
+        cbFunction: (function() {
+          return function(msg, msgObj) {
+            console.log("Type ", msgObj.type, msgObj);
+            return msgObj;
+          };
+        }())
+      }]);
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - AcousticShop</title>
+  <style>
+    :root {
+      --primary: #0066CC;
+      --primary-dark: #0056b3;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --success: #28a745;
+      --border-radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--light);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 1.5rem; }
+
+    .nav { display: flex; gap: 0.5rem; }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+    }
+    .logo span { color: var(--primary); }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+    .nav-link:hover {
+      background-color: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
+    }
+    .nav-link.active {
+      background-color: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .sdk-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background-color: rgba(0, 102, 204, 0.25);
+      color: #a8c8ff;
+      border: 1px solid rgba(0, 102, 204, 0.5);
+      border-radius: 20px;
+      padding: 0.2rem 0.6rem;
+      white-space: nowrap;
+    }
+
+    main {
+      max-width: 660px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .page-title h1 { font-size: 2rem; color: var(--dark); margin-bottom: 0.5rem; }
+    .page-title p { color: var(--gray); }
+
+    /* ── Card ── */
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .card-header h2 {
+      font-size: 1rem;
+      color: var(--dark);
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+    }
+
+    /* ── Cog button ── */
+    .cog-btn {
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.35rem 0.6rem;
+      cursor: pointer;
+      color: var(--gray);
+      font-size: 1.1rem;
+      line-height: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cog-btn:hover { background: var(--light); color: var(--dark); }
+    .cog-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* ── Configurator panel ── */
+    .configurator {
+      display: none;
+      background: #f0f4ff;
+      border: 1px solid #c8d8f5;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .configurator.open { display: block; }
+
+    .configurator-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+    .configurator-desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .mapping-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .mapping-row .field-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--dark);
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 0.45rem 0.75rem;
+    }
+    .mapping-arrow {
+      font-size: 0.9rem;
+      color: var(--gray);
+      text-align: center;
+    }
+    .mapping-row input[type="text"] {
+      font-size: 0.82rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid #c8d8f5;
+      border-radius: 6px;
+      background: white;
+      font-family: inherit;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .mapping-row input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .configurator-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #c8d8f5;
+    }
+    .configurator-section .configurator-title { margin-bottom: 0.35rem; }
+
+    .consent-group-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .consent-group-row label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--dark);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .consent-group-row input[type="text"] {
+      font-size: 0.82rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid #c8d8f5;
+      border-radius: 6px;
+      background: white;
+      font-family: monospace;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .consent-group-row input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-save-config {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .btn-save-config:hover { background-color: var(--primary-dark); }
+
+    /* ── Form fields ── */
+    .form-group { margin-bottom: 1.25rem; }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: white;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+    }
+    input[readonly] {
+      background-color: var(--light);
+      color: var(--gray);
+      cursor: default;
+    }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid #eee;
+    }
+    @media (max-width: 480px) {
+      .form-meta { grid-template-columns: 1fr; }
+    }
+
+    .field-hint {
+      font-size: 0.73rem;
+      color: var(--gray);
+      margin-top: 0.3rem;
+      font-family: monospace;
+    }
+
+    /* ── Consent checkbox ── */
+    .consent-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding: 1rem;
+      background: #f8f9ff;
+      border: 1px solid #dce4f5;
+      border-radius: 8px;
+    }
+    .consent-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .consent-group .consent-label {
+      font-size: 0.88rem;
+      color: var(--dark);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    .consent-group .consent-label strong { font-weight: 600; }
+
+    /* ── Submit button ── */
+    .btn-submit {
+      width: 100%;
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 600;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover { background-color: var(--primary-dark); }
+    .btn-submit:active { transform: scale(0.99); }
+
+    /* ── Confirmation ── */
+    .confirmation {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .confirmation-icon {
+      width: 56px;
+      height: 56px;
+      background-color: var(--success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .confirmation-icon svg {
+      width: 28px; height: 28px;
+      stroke: white; fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .confirmation h2 { color: var(--dark); margin-bottom: 0.5rem; }
+    .confirmation p { color: var(--gray); margin-bottom: 1.5rem; }
+
+    .btn-new {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background-color: var(--light);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-new:hover { background-color: var(--primary); color: white; }
+
+    /* ── Signal preview ── */
+    .signal-preview {
+      margin-top: 1.5rem;
+      background: #1e1e2e;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+    }
+    .signal-preview-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #7c85a2;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+    .signal-preview pre {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.78rem;
+      color: #cdd6f4;
+      white-space: pre;
+      margin: 0;
+      text-align: left;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+      font-size: 0.85rem;
+      border-top: 1px solid #eee;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <a href="../products/index.html" class="logo">Acoustic<span>Shop</span></a>
+      <nav class="nav">
+        <a href="../products/index.html" class="nav-link">Products</a>
+        <a href="../contact/index.html" class="nav-link active">Contact</a>
+        <a href="../cart/index.html" class="nav-link">Cart</a>
+        <a href="../../index.html" class="nav-link">Configuration</a>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <button id="flush-btn" onclick="window.TLT && window.TLT.flushAll()" style="padding:0.45rem 1rem;font-size:0.85rem;font-weight:500;background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.35);border-radius:20px;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">Flush SDK Events</button>
+      <span class="sdk-badge">SDK installed</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Contact Us</h1>
+      <p>Fill in the form below and we'll get back to you shortly.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Send a Message</h2>
+        <button class="cog-btn" id="cog-toggle" title="Configure audience mapping">⚙</button>
+      </div>
+
+      <!-- ── Configurator panel ── -->
+      <div class="configurator" id="configurator">
+        <div class="configurator-title">Audience Dataset Mapping</div>
+        <div class="configurator-desc">
+          Maps form inputs (identified by their <code>data-field</code> attribute) to
+          <strong>Audience attribute names</strong>. Only mapped fields are included in the
+          <code>audience</code> bag of the <code>logSignal</code> payload.
+        </div>
+
+        <div id="mapping-rows">
+          <!-- rows injected by JS -->
+        </div>
+
+        <div class="configurator-section">
+          <div class="configurator-title">Consent Group</div>
+          <div class="configurator-desc">
+            The consent group ID sent when the user checks the opt-in checkbox.
+          </div>
+          <div class="consent-group-row">
+            <label for="cfg-consent-group-id">Group ID</label>
+            <input type="text" id="cfg-consent-group-id" placeholder="e.g. 2cd6fffc-65c7-5224-9dd8-c43f5f4b1181" />
+          </div>
+        </div>
+
+        <button class="btn-save-config" id="save-config-btn">Save Mapping</button>
+      </div>
+
+      <!-- ── Form ── -->
+      <form id="contact-form">
+        <div class="form-meta">
+          <div class="form-group" style="margin-bottom:0">
+            <label for="formId">Form ID</label>
+            <input type="text" id="formId" data-field="formId" readonly />
+            <div class="field-hint">data-field="formId"</div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label for="formName">Form Name</label>
+            <input type="text" id="formName" data-field="formName" readonly />
+            <div class="field-hint">data-field="formName"</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" data-field="firstName"
+                   placeholder="Jane" autocomplete="given-name" required />
+            <div class="field-hint">data-field="firstName"</div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" data-field="lastName"
+                   placeholder="Doe" autocomplete="family-name" required />
+            <div class="field-hint">data-field="lastName"</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email <span style="font-weight:400;color:var(--gray)">(optional)</span></label>
+            <input type="text" id="email" name="email" data-field="email"
+                   placeholder="jane@example.com" autocomplete="email" />
+            <div class="field-hint">data-field="email"</div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number <span style="font-weight:400;color:var(--gray)">(optional)</span></label>
+            <input type="text" id="phone" name="phone" data-field="phone"
+                   placeholder="+1 555 000 0000" autocomplete="tel" />
+            <div class="field-hint">data-field="phone"</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" data-field="message"
+                    placeholder="How can we help you?" required></textarea>
+          <div class="field-hint">data-field="message"</div>
+        </div>
+
+        <div class="consent-group">
+          <input type="checkbox" id="consentEmail" name="consentEmail" />
+          <label for="consentEmail" class="consent-label">
+            <strong>I agree to receive email communications</strong><br>
+            By checking this box you opt in to marketing emails. You can unsubscribe at any time.
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit">Log Signal &amp; Send</button>
+      </form>
+
+      <!-- ── Confirmation ── -->
+      <div class="confirmation" id="confirmation">
+        <div class="confirmation-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h2>Signal Sent!</h2>
+        <p>logSignal was called with the payload below.</p>
+
+        <div class="signal-preview">
+          <div class="signal-preview-label">logSignal payload</div>
+          <pre id="signal-preview-json"></pre>
+        </div>
+
+        <br>
+        <button class="btn-new" id="new-message-btn">Send Another</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    AcousticShop - Test E-commerce Website
+  </footer>
+
+  <script>
+    // ── Constants ────────────────────────────────────────────────────────────
+    var FORM_ID   = 'form-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+    var FORM_NAME = 'Contact Form';
+
+    var STORAGE_KEY_MAPPING      = 'audienceMapping';
+    var STORAGE_KEY_CONSENT_GID  = 'consentGroupId';
+
+    var DEFAULT_MAPPING = {
+      firstName : 'First name',
+      lastName  : 'Last name',
+      email     : 'email',
+      phone     : 'Phone number',
+      formId    : '',
+      formName  : ''
+    };
+    var DEFAULT_CONSENT_GID = '46129a12-1982-5c7c-b7cd-bc7d452032a7';
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function loadMapping() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_MAPPING)) || DEFAULT_MAPPING;
+      } catch(e) { return DEFAULT_MAPPING; }
+    }
+
+    function loadConsentGroupId() {
+      return localStorage.getItem(STORAGE_KEY_CONSENT_GID) || DEFAULT_CONSENT_GID;
+    }
+
+    function saveMapping(mapping) {
+      localStorage.setItem(STORAGE_KEY_MAPPING, JSON.stringify(mapping));
+    }
+
+    function saveConsentGroupId(gid) {
+      localStorage.setItem(STORAGE_KEY_CONSENT_GID, gid);
+    }
+
+    // ── Populate read-only meta fields ────────────────────────────────────────
+    document.getElementById('formId').value   = FORM_ID;
+    document.getElementById('formName').value = FORM_NAME;
+
+    // ── Pre-fill sample data ──────────────────────────────────────────────────
+    var SAMPLE_FIRST_NAMES = ['Alice', 'Bob', 'Carol', 'David', 'Eva', 'Frank'];
+    var SAMPLE_LAST_NAMES  = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones'];
+    var SAMPLE_MESSAGES    = [
+      'Hello, I have a question about my order.',
+      'Can you help me with a return?',
+      'I would like to know more about your products.',
+      'Please contact me regarding my account.'
+    ];
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    document.getElementById('firstName').value = pick(SAMPLE_FIRST_NAMES);
+    document.getElementById('lastName').value  = pick(SAMPLE_LAST_NAMES);
+    document.getElementById('message').value   = pick(SAMPLE_MESSAGES);
+
+    // ── Build configurator mapping rows ───────────────────────────────────────
+    var audienceFields = ['firstName', 'lastName', 'email', 'phone'];
+
+    function renderMappingRows() {
+      var mapping = loadMapping();
+      var container = document.getElementById('mapping-rows');
+      container.innerHTML = '';
+
+      audienceFields.forEach(function(fieldKey) {
+        var el = document.querySelector('[data-field="' + fieldKey + '"]');
+        var labelText = el ? (document.querySelector('label[for="' + el.id + '"]') || {}).textContent || fieldKey : fieldKey;
+
+        var row = document.createElement('div');
+        row.className = 'mapping-row';
+        row.innerHTML =
+          '<span class="field-label" title="data-field=\'' + fieldKey + '\'">' + labelText.trim() + '</span>' +
+          '<span class="mapping-arrow">→</span>' +
+          '<input type="text" data-mapping-key="' + fieldKey + '" ' +
+                 'placeholder="Audience attribute name (leave blank to skip)" ' +
+                 'value="' + (mapping[fieldKey] || '') + '" />';
+        container.appendChild(row);
+      });
+    }
+
+    renderMappingRows();
+    document.getElementById('cfg-consent-group-id').value = loadConsentGroupId();
+
+    // ── Save config button ────────────────────────────────────────────────────
+    document.getElementById('save-config-btn').addEventListener('click', function() {
+      var mapping = {};
+      document.querySelectorAll('[data-mapping-key]').forEach(function(input) {
+        mapping[input.dataset.mappingKey] = input.value.trim();
+      });
+      saveMapping(mapping);
+
+      var gid = document.getElementById('cfg-consent-group-id').value.trim();
+      saveConsentGroupId(gid);
+
+      var btn = this;
+      var orig = btn.textContent;
+      btn.textContent = 'Saved!';
+      setTimeout(function() { btn.textContent = orig; }, 1500);
+    });
+
+    // ── Cog toggle ────────────────────────────────────────────────────────────
+    document.getElementById('cog-toggle').addEventListener('click', function() {
+      var panel = document.getElementById('configurator');
+      var isOpen = panel.classList.toggle('open');
+      this.classList.toggle('active', isOpen);
+      if (isOpen) renderMappingRows(); // refresh from storage each time opened
+    });
+
+    // ── Build logSignal payload ───────────────────────────────────────────────
+    function buildSignalPayload() {
+      var mapping       = loadMapping();
+      var consentGid    = loadConsentGroupId();
+      var consentChecked = document.getElementById('consentEmail').checked;
+
+      // Build audience bag from mapping
+      var audience = {};
+      audienceFields.forEach(function(fieldKey) {
+        var attributeName = mapping[fieldKey];
+        if (!attributeName) return; // skip unmapped fields
+        var el = document.querySelector('[data-field="' + fieldKey + '"]');
+        if (el) audience[attributeName] = el.value;
+      });
+
+      var payload = {
+        signalType : 'exampleFormSubmitted',
+        message    : document.getElementById('message').value,
+        formId     : FORM_ID,
+        formName   : FORM_NAME,
+        audience   : audience
+      };
+
+      if (consentChecked && consentGid) {
+        payload.consent = {
+          enableOverrideExistingOptOut: false,
+          email: [{
+            status: 'OPT_IN',
+            consentGroupIds: [consentGid]
+          }]
+        };
+      }
+
+      return payload;
+    }
+
+    // ── Form submit ───────────────────────────────────────────────────────────
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var payload = buildSignalPayload();
+
+      if (window.TLT && typeof window.TLT.logSignal === 'function') {
+        window.TLT.logSignal(payload.signalType, payload);
+        window.TLT.flushAll();
+      } else {
+        console.warn('TLT.logSignal not available — payload:', payload);
+      }
+
+      document.getElementById('signal-preview-json').textContent =
+        JSON.stringify(payload, null, 2);
+
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+    });
+
+    // ── Reset ─────────────────────────────────────────────────────────────────
+    document.getElementById('new-message-btn').addEventListener('click', function() {
+      document.getElementById('firstName').value = pick(SAMPLE_FIRST_NAMES);
+      document.getElementById('lastName').value  = pick(SAMPLE_LAST_NAMES);
+      document.getElementById('email').value     = '';
+      document.getElementById('phone').value     = '';
+      document.getElementById('message').value   = pick(SAMPLE_MESSAGES);
+      document.getElementById('consentEmail').checked = false;
+      document.getElementById('contact-form').style.display = 'block';
+      document.getElementById('confirmation').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
