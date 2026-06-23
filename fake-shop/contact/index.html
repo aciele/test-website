@@ -4,8 +4,8 @@
   <script src="../../scripts/acoconnect.js"></script>
   <script>
     (function() {
-      var appKey = localStorage.getItem('appKey') || '7ac5edf7677746ed84ed864ad7e3e5ea';
-      var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+      var appKey = localStorage.getItem('appKey') || 'd6fd136d05674478b035a43d4ffed651';
+      var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost';
       window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
 
       TLT.registerBridgeCallbacks([{

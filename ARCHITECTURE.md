@@ -176,8 +176,8 @@ All pages use the same SDK initialization pattern:
 
 // Initialize with localStorage config
 (function() {
-  var appKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
-  var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+  var appKey = localStorage.getItem('appKey') || 'd6fd136d05674478b035a43d4ffed651';
+  var wsCollectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost';
   window.TLT && window.TLT.initLib(appKey, wsCollectorUrl);
 })();
 ```

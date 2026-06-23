@@ -377,9 +377,9 @@
         }
 
         // Load existing values from localStorage, if any
-        const storedAppKey = localStorage.getItem('appKey') || '825d6c04baa54875a7fa2462912acb46';
+        const storedAppKey = localStorage.getItem('appKey') || 'd6fd136d05674478b035a43d4ffed651';
         document.getElementById('appKey').value = storedAppKey;
-        document.getElementById('wsCollectorUrl').value = localStorage.getItem('wsCollectorUrl') || 'https://collector-eaoc.qa.goacoustic.com/collector/collectorPost';
+        document.getElementById('wsCollectorUrl').value = localStorage.getItem('wsCollectorUrl') || 'https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost';
 
         // Set the select value based on localStorage appKey (if it exists in the list)
         const appKeySelect = document.getElementById('appKeySelect');
