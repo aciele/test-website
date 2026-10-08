@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDK v2</title>
+    <script src="https://public-assets.goacoustic.com/ac-sdk-web/latest/acoconnect.min.js"></script>
+    <script>
+      (function () {
+        var appKey = localStorage.getItem('appKey') || 'd6fd136d05674478b035a43d4ffed651';
+        var collectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost';
+
+        if (!window.ConnectWeb) {
+          console.error('[ConnectWeb] SDK not loaded from CDN.');
+          return;
+        }
+
+        ConnectWeb.init({
+          appKey: appKey,
+          collectorUrl: collectorUrl,
+        }).then(function (runtime) {
+          window.__connectRuntime = runtime;
+          console.log('[ConnectWeb] initialised', runtime.getDebugInfo());
+        }).catch(function (err) {
+          console.error('[ConnectWeb] init failed', err);
+        });
+      })();
+    </script>
+    <style>
+        :root {
+            --primary: #0066CC;
+            --primary-dark: #0056b3;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --success-dark: #218838;
+            --danger: #dc3545;
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sdk-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background-color: rgba(0, 102, 204, 0.25);
+            color: #a8c8ff;
+            border: 1px solid rgba(0, 102, 204, 0.5);
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            white-space: nowrap;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: var(--gray);
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .hero-details {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-details h1 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .hero-details .lead {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .config-box {
+            background-color: #f3f3ff;
+            border: 1px solid #d4d4e8;
+            border-radius: 8px;
+            padding: 0.9rem 1rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.82rem;
+            color: var(--dark);
+            margin-top: auto;
+            word-break: break-all;
+        }
+
+        .config-box strong {
+            color: var(--primary);
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--success-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        form.demo-form {
+            display: grid;
+            gap: 1rem;
+            max-width: 420px;
+        }
+
+        form.demo-form label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            font-size: 0.9rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        form.demo-form input {
+            padding: 0.65rem 0.9rem;
+            font-size: 0.95rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        form.demo-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+            border-top: 1px solid #eee;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="../index.html" class="logo">Acoustic<span>Connect</span></a>
+            <nav class="nav">
+                <a href="../index.html" class="nav-link">Configuration</a>
+                <a href="index.html" class="nav-link">Basic Pages</a>
+            </nav>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="sdk-badge">SDK v2</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a>
+            <span> / </span>
+            <a href="index.html">Basic Pages</a>
+            <span> / SDK v2</span>
+        </div>
+
+        <div class="hero-layout">
+            <img class="hero-image" src="https://placedog.net/400/595?id=91" alt="A dog" />
+
+            <div class="hero-details">
+                <h1>SDK v2</h1>
+                <p class="lead">
+                    This page initialises <strong>ConnectWeb</strong> (<code>ac-sdk-web</code>)
+                    from the public CDN, taking <code>appKey</code> and <code>wsCollectorUrl</code>
+                    from localStorage — the same source as the legacy SDK.
+                </p>
+                <div style="margin-bottom: 1.25rem;">
+                    <button type="button" class="btn btn-secondary">Click me</button>
+                </div>
+                <div class="config-box">
+                    <strong>SDK:</strong> public-assets.goacoustic.com/ac-sdk-web/latest/acoconnect.min.js<br>
+                    <strong>appKey:</strong> <span id="cfg-appKey"></span><br>
+                    <strong>collectorUrl:</strong> <span id="cfg-collectorUrl"></span>
+                </div>
+            </div>
+        </div>
+
+        <section class="card">
+            <h2>Signals</h2>
+            <div class="actions">
+                <button id="btn-pageview" type="button" class="btn btn-primary">logSignal pageView</button>
+                <button id="btn-order" type="button" class="btn btn-primary">logSignal order</button>
+                <button id="btn-flush" type="button" class="btn btn-secondary">flush()</button>
+                <button id="btn-debug" type="button" class="btn btn-secondary">getDebugInfo()</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Form</h2>
+            <form id="demo-form" class="demo-form" onsubmit="event.preventDefault();">
+                <label>Name
+                    <input type="text" name="name" />
+                </label>
+                <label>Email
+                    <input type="email" name="email" />
+                </label>
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        Acoustic Connect SDK Test Website
+    </footer>
+
+    <script>
+      document.getElementById('cfg-appKey').textContent = localStorage.getItem('appKey') || 'd6fd136d05674478b035a43d4ffed651';
+      document.getElementById('cfg-collectorUrl').textContent = localStorage.getItem('wsCollectorUrl') || 'https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost';
+
+      function withRuntime(fn) {
+        if (window.__connectRuntime) return fn(window.__connectRuntime);
+        console.warn('[ConnectWeb] runtime not ready yet.');
+      }
+
+      document.getElementById('btn-pageview').addEventListener('click', function () {
+        withRuntime(function (r) {
+          r.logSignal({ signalType: 'pageView', url: location.href, effect: 'positive' });
+        });
+      });
+
+      document.getElementById('btn-order').addEventListener('click', function () {
+        withRuntime(function (r) {
+          r.logSignal({
+            signalType: 'order',
+            orderId: 'ORDER-' + Date.now(),
+            orderValue: 42.0,
+            currency: 'USD',
+            orderedItems: [
+              { productId: 'sku-123', productName: 'Example', unitPrice: 42.0, itemQuantity: 1, currency: 'USD' },
+            ],
+          });
+        });
+      });
+
+      document.getElementById('btn-flush').addEventListener('click', function () {
+        withRuntime(function (r) { r.flush(); });
+      });
+
+      document.getElementById('btn-debug').addEventListener('click', function () {
+        withRuntime(function (r) { console.log(r.getDebugInfo()); });
+      });
+    </script>
+</body>
+</html>
