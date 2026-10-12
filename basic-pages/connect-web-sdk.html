@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDK v2</title>
-    <script src="https://public-assets.goacoustic.com/ac-sdk-web/latest/acoconnect.min.js"></script>
+    <script src="assets/acoconnect.min.js"></script>
     <script>
       (function () {
         var appKey = localStorage.getItem('appKey') || 'd6fd136d05674478b035a43d4ffed651';
         var collectorUrl = localStorage.getItem('wsCollectorUrl') || 'https://collector-tealeaf-staging.goacoustic.com/collector/collectorPost';
 
         if (!window.ConnectWeb) {
-          console.error('[ConnectWeb] SDK not loaded from CDN.');
+          console.error('[ConnectWeb] SDK not loaded from local bundle.');
           return;
         }
 
@@ -325,14 +325,14 @@
                 <h1>SDK v2</h1>
                 <p class="lead">
                     This page initialises <strong>ConnectWeb</strong> (<code>ac-sdk-web</code>)
-                    from the public CDN, taking <code>appKey</code> and <code>wsCollectorUrl</code>
+                    from a local bundle, taking <code>appKey</code> and <code>wsCollectorUrl</code>
                     from localStorage — the same source as the legacy SDK.
                 </p>
                 <div style="margin-bottom: 1.25rem;">
                     <button type="button" class="btn btn-secondary">Click me</button>
                 </div>
                 <div class="config-box">
-                    <strong>SDK:</strong> public-assets.goacoustic.com/ac-sdk-web/latest/acoconnect.min.js<br>
+                    <strong>SDK:</strong> assets/acoconnect.min.js (local build)<br>
                     <strong>appKey:</strong> <span id="cfg-appKey"></span><br>
                     <strong>collectorUrl:</strong> <span id="cfg-collectorUrl"></span>
                 </div>
